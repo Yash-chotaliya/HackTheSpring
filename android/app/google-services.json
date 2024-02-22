@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "519305744992",
+    "project_id": "hackthespring-6dc73",
+    "storage_bucket": "hackthespring-6dc73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519305744992:android:0bb77ccd83625cfe4e2905",
+        "android_client_info": {
+          "package_name": "com.example.hack_the_spring"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFKwtnpLAXHO0yYunI3nMeeil5blZmw_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519305744992:android:db34eb485b98b32b4e2905",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFKwtnpLAXHO0yYunI3nMeeil5blZmw_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
