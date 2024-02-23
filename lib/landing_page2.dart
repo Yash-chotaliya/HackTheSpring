@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/employee/employee_signin.dart';
 
 class LandingPage2 extends StatelessWidget{
   const LandingPage2({super.key});
@@ -31,7 +31,7 @@ class LandingPage2 extends StatelessWidget{
               padding: const EdgeInsets.only(bottom: 100),
               child: TextButton(
                 onPressed: (){
-
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeSignIn()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
