@@ -63,9 +63,7 @@ class LandingPage1 extends StatelessWidget{
               padding: const EdgeInsets.only(bottom: 100),
               child: TextButton(
                 onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (BuildContext context) => const LandingPage2(),
-                  ));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LandingPage2()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
