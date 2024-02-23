@@ -47,13 +47,20 @@ class LandingPage1 extends StatelessWidget{
           )
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Hello, I am your salary manager",style: TextStyle(color: Colors.white,fontSize: 25),textAlign: TextAlign.center),
-            Image.asset("assets/images/landing_page_vector1.png"),
-            SizedBox(
+            Container(
+              padding: const EdgeInsets.only(top: 100),
+                child: const Text("Hello, I Am Your \nSalary Manager",style: TextStyle(color: Colors.white,fontSize: 27),textAlign: TextAlign.center, )
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 100),
+                child: Image.asset("assets/images/landing_page_vector1.png")
+            ),
+            Container(
               width: 100,
+              padding: const EdgeInsets.only(bottom: 100),
               child: TextButton(
                 onPressed: (){
                   Navigator.pushReplacement(context, MaterialPageRoute(

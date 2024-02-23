@@ -18,10 +18,17 @@ class LandingPage2 extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Safe and Secure salary management",style: TextStyle(color: Colors.white,fontSize: 25),textAlign: TextAlign.center),
-            Image.asset("assets/images/landing_page_vector2.png"),
-            SizedBox(
-              width: 200,
+            Container(
+                padding: const EdgeInsets.only(top: 80),
+                child: const Text("Safe & Secure \nSalary \nManagement",style: TextStyle(color: Colors.white,fontSize: 27),textAlign: TextAlign.center, )
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 90),
+                child: Image.asset("assets/images/landing_page_vector2.png")
+            ),
+            Container(
+              width: 170,
+              padding: const EdgeInsets.only(bottom: 100),
               child: TextButton(
                 onPressed: (){
 
