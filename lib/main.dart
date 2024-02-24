@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/landing_page2.dart';
+import 'package:hack_the_spring/employee/employee_signin.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,35 +40,54 @@ class LandingPage1 extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: double.maxFinite,
+        width: double.maxFinite,
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage("assets/images/landing_page_background.png")
+            image: AssetImage("assets/images/init_page_background.png")
           )
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: const EdgeInsets.only(top: 100),
-                child: const Text("Hello, I Am Your \nSalary Manager",style: TextStyle(color: Colors.white,fontSize: 27),textAlign: TextAlign.center, )
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 50,),
+                Text("Seamlessly Manage\nYour Salary",style: TextStyle(color: Colors.black,fontSize: 27),textAlign: TextAlign.center, ),
+                SizedBox(height: 20,),
+                Text("Discover the revolutionary semi automated\nsalary management experience.",style: TextStyle(color: Color(0x77212121),fontSize: 15),textAlign: TextAlign.center, ),
+                SizedBox(height: 50,),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.only(bottom: 100),
-                child: Image.asset("assets/images/landing_page_vector1.png")
-            ),
-            Container(
-              width: 100,
-              padding: const EdgeInsets.only(bottom: 100),
-              child: TextButton(
+            SizedBox(
+              width: 150,
+              child: ElevatedButton(
                 onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LandingPage2()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeSignIn()));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: const Color(0xFF2d4b89),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )
                 ),
-                child: const Text("Next", style: TextStyle(fontSize: 15, color: Colors.black),),
+                child: const Text("Get Started", style: TextStyle(fontSize: 15, color: Colors.white),),
+              ),
+            ),
+            Container(
+              width: double.maxFinite,
+              alignment: Alignment.center,
+              child: Stack(
+                children: [
+                  Container(
+                      margin: const EdgeInsets.only(top: 110),
+                      child: Image.asset("assets/images/landing_page_vector2.png", height: 320,width: 320,),
+                  ),
+                  Image.asset("assets/images/landing_page_vector1.png", height: 190,width: 190,),
+                ],
               ),
             ),
           ],
