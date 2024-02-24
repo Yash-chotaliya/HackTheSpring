@@ -5,12 +5,16 @@ class CustomTextField extends StatelessWidget{
   final String hint;
   final TextEditingController controller;
   final TextInputType keyboardType;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   const CustomTextField({
     super.key,
     required this.hint,
     required this.controller,
-    required this.keyboardType
+    required this.keyboardType,
+    required this.prefixIcon,
+    required this.suffixIcon
   });
 
   @override
@@ -23,13 +27,18 @@ class CustomTextField extends StatelessWidget{
         cursorColor: Colors.black,
         style: TextStyle(color: CustomColor().textFieldTxtColor, fontSize: 15),
         decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+          enabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
-              width: 0,
-              style: BorderStyle.none,
+              width: 2,
+            ),
+          ),
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          focusedBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              width: 3,
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

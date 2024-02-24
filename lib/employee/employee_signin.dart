@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/custom_button.dart';
-import 'package:hack_the_spring/components/custom_color.dart';
 import 'package:hack_the_spring/components/custom_textfield.dart';
 
 class EmployeeSignIn extends StatefulWidget{
@@ -20,107 +19,61 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: CustomColor().authBackgroundColor,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/images/init_page_background.png")
+            )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: double.maxFinite,
-              margin: const EdgeInsets.only(top: 50),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              margin: const EdgeInsets.only(top: 70, right: 30, left: 30),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue,
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 2.0,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
-                    ),
-                    margin: const EdgeInsets.only(top: 10, bottom: 10, right: 200),
-                    alignment: AlignmentDirectional.center,
-                    width: 200,
-                    child: const Text("Admin", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w700),),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue,
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 2.0,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))
-                    ),
-                    margin: const EdgeInsets.only(top: 10, bottom: 10, left: 200),
-                    alignment: AlignmentDirectional.center,
-                    width: 200,
-                    child: const Text("Employee", style: TextStyle(color: Colors.blue, fontSize: 30, fontWeight: FontWeight.w700),),
-                  )
+                  Text("Let's Sign You In", style: TextStyle(color: Colors.black, fontSize: 20,),),
+                  Text("Welcome back, you've been missed!", style: TextStyle(color: Color(0x77212121), fontSize: 12),)
                 ],
               ),
             ),
-            Card(
-              elevation: 10,
-              surfaceTintColor: CustomColor().authBackgroundColor,
-              color: CustomColor().authBackgroundColor,
-              shadowColor: Colors.blue,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.white, width: 5),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, bottom: 20),
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(
-                          color: Color(0xFF1089D3),
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Admin", style: TextStyle(color: Colors.black, fontSize: 15),),
+                    const SizedBox(width: 50,),
+                    Container(
+                      width: 100,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(width: 2.0, color: Colors.black)
                       ),
-                    ),
-                  ),
-                  CustomTextField(hint: "User Id", controller: userIdController, keyboardType: TextInputType.text),
-                  CustomTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.text),
-                  Container(
-                      width: double.maxFinite,
-                      margin: const EdgeInsets.only(top: 1,left: 25, right: 25),
-                      child: InkWell(
-                        onTap: (){
-
-                        },
-                          child: const Text("Forget Password ?", style: TextStyle(color: Colors.blue, fontSize: 13))
-                      ),
-                  ),
-                  CustomButton(
-                      onTap: (){
-
-                      },
-                      btnTxt: "Sign In"
-                  ),
-                  Text(errorMessage,style: TextStyle(fontSize: 13, color: Colors.red)),
-                  SizedBox(height: 10)
-                ],
-              ),
+                      child: const Text("Employee",style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 50,),
+                CustomTextField(hint: "Employee Id", controller: userIdController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
+                CustomTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),)
+              ],
             ),
             Container(
               width: double.maxFinite,
-              height: 100,
-              color: CustomColor().authBackgroundColor,
+              margin: const EdgeInsets.only(bottom: 80, left: 50, right: 50),
+              child: CustomButton(
+                  onTap: (){
+
+                  },
+                  btnTxt: "SIGN IN"
+              ),
             )
           ],
         ),

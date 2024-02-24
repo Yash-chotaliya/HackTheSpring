@@ -18,7 +18,7 @@ class CustomButton extends StatelessWidget{
       child: ElevatedButton(
           onPressed: onTap,
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF9652f9)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget{
           ),
           child: Text(
               btnTxt,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(color: Colors.white, fontSize: 17),
           )
       ),
     );
