@@ -1,6 +1,11 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/components/custom_button.dart';
-import 'package:hack_the_spring/components/custom_textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../components/auth/auth_button.dart';
+import '../components/auth/auth_textfield.dart';
+import 'main/employee_main_screen.dart';
 
 class EmployeeSignIn extends StatefulWidget{
   const EmployeeSignIn({super.key});
@@ -11,7 +16,7 @@ class EmployeeSignIn extends StatefulWidget{
 
 class _EmployeeSignInState extends State<EmployeeSignIn> {
 
-  var userIdController = TextEditingController();
+  var employeeIdController = TextEditingController();
   var passwordController = TextEditingController();
   var errorMessage = "";
 
@@ -61,17 +66,19 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
                   ],
                 ),
                 const SizedBox(height: 50,),
-                CustomTextField(hint: "Employee Id", controller: userIdController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
-                CustomTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),)
+                AuthTextField(hint: "Employee Id", controller: employeeIdController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
+                AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
+                SizedBox(height: 20,),
+                Text(errorMessage, style: TextStyle(color: Colors.red),)
               ],
             ),
             Container(
               width: double.maxFinite,
               margin: const EdgeInsets.only(bottom: 80, left: 50, right: 50),
-              child: CustomButton(
+              child: AuthButton(
                   onTap: (){
-
-                  },
+                      signInEmployee();
+                    },
                   btnTxt: "SIGN IN"
               ),
             )
@@ -79,5 +86,27 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
         ),
       )
     );
+  }
+
+  void signInEmployee(){
+    String employeeId = employeeIdController.text.toString();
+    String password = passwordController.text.toString();
+
+    FirebaseFirestore.instance.collection("Employees").get().then((employees) {
+      for (var employee in employees.docs){
+        if((employee.get("employee Id").toString()==employeeId) && (employee.get("password").toString()==password)){
+          savePref(employeeId, employee.get("name").toString());
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeMainScreen(employeeId: employeeId, name: employee.get("name").toString(),)));
+          return;
+        }
+      }
+    });
+  }
+
+  Future<void> savePref(var employeeId, var name) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("employeeId", employeeId);
+    prefs.setString("name", name);
+    prefs.setBool("islogin", true);
   }
 }

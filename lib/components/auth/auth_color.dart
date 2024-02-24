@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class CustomColor{
+class AuthColor{
   Color textFieldTxtColor = const Color(0xFF000000);
   Color textFieldHintTextColor = const Color(0xFF919191);
 
