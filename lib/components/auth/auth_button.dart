@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget{
+class AuthButton extends StatelessWidget{
   final Function()? onTap;
   final String btnTxt;
 
-  const CustomButton({
+  const AuthButton({
     super.key,
     required this.onTap,
     required this.btnTxt

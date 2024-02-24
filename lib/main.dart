@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
+import 'package:hack_the_spring/employee/main/employee_main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +35,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LandingPage1 extends StatelessWidget{
+class LandingPage1 extends StatefulWidget{
   const LandingPage1({super.key});
+
+  @override
+  State<LandingPage1> createState() => _LandingPage1State();
+}
+
+class _LandingPage1State extends State<LandingPage1> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +93,9 @@ class LandingPage1 extends StatelessWidget{
                 children: [
                   Container(
                       margin: const EdgeInsets.only(top: 110),
-                      child: Image.asset("assets/images/landing_page_vector2.png", height: 320,width: 320,),
+                      child: Image.asset("assets/images/landing_page_image2.png", height: 320,width: 320,),
                   ),
-                  Image.asset("assets/images/landing_page_vector1.png", height: 190,width: 190,),
+                  Image.asset("assets/images/landing_page_image1.png", height: 190,width: 190,),
                 ],
               ),
             ),
@@ -96,4 +105,18 @@ class LandingPage1 extends StatelessWidget{
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    checkSignIn();
+  }
+
+  Future<void> checkSignIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey("islogin")){
+      if(prefs.getBool("islogin")!){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeMainScreen(employeeId: prefs.getString("employeeId")!, name: prefs.getString("name")!,)));
+      }
+    }
+  }
 }
