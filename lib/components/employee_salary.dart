@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../data models/employee_model.dart';
 
-class EmployeeSalaryMainCard extends StatelessWidget{
+class EmployeeSalaryCard extends StatelessWidget{
   final EmployeeSalaryModel employeeSalaryModel;
 
-  const EmployeeSalaryMainCard({
+  const EmployeeSalaryCard({
     super.key,
     required this.employeeSalaryModel
   });
@@ -21,14 +21,12 @@ class EmployeeSalaryMainCard extends StatelessWidget{
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Column(
           children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(employeeSalaryModel.month, style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
-                  Text("${employeeSalaryModel.daysLeft} day left",style: const TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text("${employeeSalaryModel.month} ${employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
+                Text("${employeeSalaryModel.daysLeft} day left",style: const TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
+              ],
             ),
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -55,13 +53,13 @@ class EmployeeSalaryMainCard extends StatelessWidget{
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 5,),
+                          const SizedBox(height: 5,),
                           Text("₹ ${employeeSalaryModel.basicSalary}",style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15, )),
-                          SizedBox(height: 5,),
+                          const SizedBox(height: 5,),
                           Text("₹ ${employeeSalaryModel.expense}",style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15, )),
-                          SizedBox(height: 5,),
+                          const SizedBox(height: 5,),
                           Text("₹ ${employeeSalaryModel.deduction}",style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15, )),
-                          SizedBox(height: 5,),
+                          const SizedBox(height: 5,),
                         ],
                       ),
                     ],
@@ -73,7 +71,7 @@ class EmployeeSalaryMainCard extends StatelessWidget{
                         color: statusColor(),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text("${employeeSalaryModel.status}", style: TextStyle(color: Colors.white, fontSize: 12),),
+                      child: Text(employeeSalaryModel.status, style: const TextStyle(color: Colors.white, fontSize: 12),),
                   )
                 ],
               ),

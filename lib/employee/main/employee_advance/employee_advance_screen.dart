@@ -10,7 +10,8 @@ class EmployeeAdvanceScreen extends StatefulWidget{
 class _EmployeeAdvanceScreenState extends State<EmployeeAdvanceScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return const Center(
+      child: Text("Advance"),
+    );
   }
 }
