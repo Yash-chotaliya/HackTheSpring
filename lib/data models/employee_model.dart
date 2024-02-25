@@ -73,3 +73,32 @@ class EmployeeSalaryModel{
     };
   }
 }
+
+class EmployeeExpenseModel{
+  int amount;
+  String purpose;
+  String photo;
+  String status;
+  String time;
+  String vehicleNumber;
+
+  EmployeeExpenseModel({
+    required this.amount,
+    required this.purpose,
+    required this.photo,
+    required this.status,
+    required this.time,
+    required this.vehicleNumber
+  });
+
+  toMap(){
+    return {
+      "amount":amount,
+      "purpose":purpose,
+      "photo":photo,
+      "status":status,
+      "time":time,
+      "vehicleNumber":vehicleNumber
+    };
+  }
+}

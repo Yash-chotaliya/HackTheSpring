@@ -37,40 +37,39 @@ class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
                   color: Color(0xFF9b51e0),
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))
               ),
-              padding: EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    child: Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
+                    child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
                     onTap: (){
                       Navigator.pop(context);
                     },
                   ),
-                  Text("Salary", style: TextStyle(color: Colors.white, fontSize: 25),),
-                  SizedBox(width: 25,)
+                  const Text("Salary", style: TextStyle(color: Colors.white, fontSize: 25),),
+                  const SizedBox(width: 25,)
                 ],
               ),
             ),
             Container(
-              height: 550,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              height: 600,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: widget.employeeSalaryList.length,
                 itemBuilder: (context, index) {
-                  return listItemLay3(context,index);
+                  return listItemLay(context,index);
                 },
               ),
             ),
-            const SizedBox(height: 50,)
           ],
         ),
       ),
     );
   }
 
-  Widget listItemLay3(BuildContext context,int index){
-    return EmployeeSalaryMainCard(employeeSalaryModel: widget.employeeSalaryList[index]);
+  Widget listItemLay(BuildContext context,int index){
+    return EmployeeSalaryCard(employeeSalaryModel: widget.employeeSalaryList[index]);
   }
 }
