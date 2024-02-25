@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/data%20models/Employee.dart';
+import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../components/employee_profile.dart';
+import '../../../components/employee_profile.dart';
 
 class EmployeeProfileScreen extends StatefulWidget{
   final String employeeId;
@@ -20,7 +20,7 @@ class EmployeeProfileScreen extends StatefulWidget{
 
 class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
 
-  EmployeeDetails employeeDetails = EmployeeDetails(employeeId: "", email: "", lastlogin: "", mobileNumber: "", name: "", photo: "");
+  EmployeeDetailsModel employeeDetails = EmployeeDetailsModel(employeeId: "", email: "", lastlogin: "", mobileNumber: "", name: "", photo: "");
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
               Container(
                 width: double.maxFinite,
                 margin: const EdgeInsets.only(top: 50),
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -51,8 +51,8 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
                           Navigator.pop(context);
                       },
                     ),
-                    Text("My Profile", style: TextStyle(color: Colors.white, fontSize: 25),),
-                    SizedBox(width: 25,)
+                    const Text("My Profile", style: TextStyle(color: Colors.white, fontSize: 25),),
+                    const SizedBox(width: 25,)
                   ],
                 ),
               ),
@@ -130,7 +130,7 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
                       EmployeeProfileText(hint: 'Mobile Number', text: employeeDetails.mobileNumber, icon: Icon(Icons.phone),),
                       EmployeeProfileText(hint: 'Employee Id', text: employeeDetails.employeeId, icon: Icon(Icons.person),),
                       EmployeeProfileText(hint: 'last Login', text: employeeDetails.lastlogin, icon: Icon(Icons.calendar_month),),
-                      SizedBox(height: 10,)
+                      const SizedBox(height: 20,)
                     ],
                   ),
                 ),
@@ -151,7 +151,7 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
   void getEmployeeDetails(){
     FirebaseFirestore.instance.collection("Employees").doc(widget.employeeId).get().then((details){
       setState(() {
-        employeeDetails = EmployeeDetails(
+        employeeDetails = EmployeeDetailsModel(
             email: details.get("email"),
             employeeId: details.get("employee Id"),
             lastlogin: details.get("lastlogin"),
