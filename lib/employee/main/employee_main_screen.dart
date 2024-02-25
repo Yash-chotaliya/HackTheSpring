@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/employee/main/employee_profile_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../data models/Employee.dart';
+import 'package:hack_the_spring/components/employee_salary.dart';
+import 'package:hack_the_spring/data%20models/employee_model.dart';
+import 'package:hack_the_spring/employee/main/employee_profile/employee_profile_screen.dart';
+import 'package:hack_the_spring/employee/main/employee_salary/employee_salary_screen.dart';
 
 class EmployeeMainScreen extends StatefulWidget{
   final String employeeId;
@@ -21,7 +21,13 @@ class EmployeeMainScreen extends StatefulWidget{
 
 class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
 
-  EmployeeDetails employeeDetails = EmployeeDetails(employeeId: "", email: "", lastlogin: "", mobileNumber: "", name: "", photo: "");
+  List<EmployeeSalaryModel> employeeSalaryList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getEmployeeSalary();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +35,22 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
             image: AssetImage("assets/images/employee_main_background.png"),
           )
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: double.maxFinite,
-              margin: EdgeInsets.only(top: 40),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.only(top: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Hello,\n${employeeDetails.name}", style: TextStyle(color: Colors.black, fontSize: 20)),
+                  Text("Hello,\n${widget.name}", style: const TextStyle(color: Colors.white, fontSize: 20)),
                   InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeProfileScreen(employeeId: widget.employeeId,)));
@@ -53,6 +58,35 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                     child: CircleAvatar(
                       radius: 27,
                       child: Image.asset("assets/images/profile_image.png"),
+                    ),
+                  )
+                ],
+              )
+            ),
+            Container(
+              width: double.maxFinite,
+              margin: const EdgeInsets.only(top: 30),
+              child: Column(
+                children: [
+                  Container(
+                      width: double.maxFinite,
+                      alignment: Alignment.centerRight,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeSalaryScreen(employeeSalaryList: employeeSalaryList,)));
+                        },
+                          child: const Text("View All", style: TextStyle(color: Colors.white),)
+                      ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        getLatestSalary(0),
+                        getLatestSalary(1)
+                      ],
                     ),
                   )
                 ],
@@ -64,24 +98,31 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getEmployeeDetails();
+  Future<void> getEmployeeSalary() async {
+    await FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeId).collection("History").get().then((docSnapShot){
+      for (var doc in docSnapShot.docs){
+        setState(() {
+          employeeSalaryList.insert(0,EmployeeSalaryModel(
+              salaryId: doc.get("salaryId"),
+              allowance: doc.get("allowance"),
+              basicSalary: doc.get("basicSalary"),
+              bonus: doc.get("bonus"),
+              ctc: doc.get("ctc"),
+              deduction: doc.get("deduction"),
+              inHand: doc.get("inHand"),
+              daysLeft: doc.get("daysLeft"),
+              month: doc.get("month"),
+              year: doc.get("year"),
+              status: doc.get("status"),
+              expense: doc.get("expense")));
+        });
+      }
+    });
   }
 
-  void getEmployeeDetails(){
-    FirebaseFirestore.instance.collection("Employees").doc(widget.employeeId).get().then((details){
-      setState(() {
-        employeeDetails = EmployeeDetails(
-            email: details.get("email"),
-            employeeId: details.get("employee Id"),
-            lastlogin: details.get("lastlogin"),
-            mobileNumber: details.get("mobile number"),
-            name: details.get("name"),
-            photo: details.get("photo")
-        );
-      });
-    });
+  getLatestSalary(int index) {
+    if(employeeSalaryList.isNotEmpty)
+      return EmployeeSalaryMainCard(employeeSalaryModel: employeeSalaryList[index]);
+    return Container();
   }
 }
