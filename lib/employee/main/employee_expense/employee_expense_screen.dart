@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/employee/main/employee_expense/employee_add_expense_screen.dart';
 
 import '../../../components/employee_expense.dart';
 import '../../../data models/employee_model.dart';
@@ -40,6 +41,7 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Container(
               width: double.maxFinite,
@@ -63,8 +65,8 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
               ),
             ),
             Container(
-              height: 550,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              height: 610,
+              margin: const EdgeInsets.only(bottom: 50),
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: employeeExpenseList.length,
@@ -73,9 +75,15 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 50,)
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF9b51e0),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAddExpenseScreen(employeeId: widget.employeeId)));
+        },
+        child: Icon(Icons.add, color: Colors.white,),
       ),
     );
   }
