@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/employer/employer_signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/auth/auth_button.dart';
 import '../components/auth/auth_textfield.dart';
@@ -51,7 +52,14 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Admin", style: TextStyle(color: Colors.black, fontSize: 15),),
+                    InkWell(
+                        onTap:(){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignIn()));
+
+
+                        } ,
+                        child: const Text("Admin", style: TextStyle(color: Colors.black, fontSize: 15),)
+                    ),
                     const SizedBox(width: 50,),
                     Container(
                       width: 100,
