@@ -97,13 +97,13 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                     ),Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account?",style: TextStyle(color: Colors.black, fontSize: 20,),),
+                        Text("Don't have an account? ",style: TextStyle(color:Color(0x77212121), fontSize: 15,),),
                         InkWell(
                             onTap: (){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignUp()));
                             },
 
-                            child: Text("Signup",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),)),
+                            child: Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
                       ],
                     )
                    
