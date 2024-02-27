@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
+import 'package:hack_the_spring/employer/employer_main_screen.dart';
 import 'package:hack_the_spring/employer/employer_signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/auth/auth_button.dart';
@@ -91,7 +92,7 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                   children: [
                     AuthButton(
                         onTap: (){
-
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerMainScreen(employerId: "", name: "")));
                         },
                         btnTxt: "SIGN IN"
                     ),Row(
@@ -102,8 +103,10 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                             onTap: (){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignUp()));
                             },
+                            child: Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),))
 
-                            child: Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
+
+
                       ],
                     )
                    
