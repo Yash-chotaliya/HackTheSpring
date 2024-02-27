@@ -75,6 +75,7 @@ class EmployeeSalaryModel{
 }
 
 class EmployeeExpenseModel{
+  String expenseId;
   int amount;
   String purpose;
   String photo;
@@ -83,6 +84,7 @@ class EmployeeExpenseModel{
   String vehicleNumber;
 
   EmployeeExpenseModel({
+    required this.expenseId,
     required this.amount,
     required this.purpose,
     required this.photo,
@@ -93,12 +95,36 @@ class EmployeeExpenseModel{
 
   toMap(){
     return {
+      "expenseId": expenseId,
       "amount":amount,
       "purpose":purpose,
       "photo":photo,
       "status":status,
       "time":time,
       "vehicleNumber":vehicleNumber
+    };
+  }
+}
+
+class EmployeeAdvanceModel{
+  final String advanceId;
+  final int amount;
+  final String purpose;
+  final String issuedDate;
+
+  EmployeeAdvanceModel({
+    required this.advanceId,
+    required this.amount,
+    required this.purpose,
+    required this.issuedDate
+  });
+
+  toMap(){
+    return {
+      "advanceId": advanceId,
+      "amount": amount,
+      "purpose": purpose,
+      "issuedDate": issuedDate
     };
   }
 }

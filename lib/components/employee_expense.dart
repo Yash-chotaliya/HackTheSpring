@@ -55,7 +55,7 @@ class EmployeeExpenseCard extends StatelessWidget{
                     child: Text(employeeExpenseModel.status, style: const TextStyle(color: Colors.white, fontSize: 12),),
                   ),
                   Container(
-                    width: 150,
+                    width: 160,
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -105,7 +105,7 @@ class EmployeeExpenseText extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 160,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
