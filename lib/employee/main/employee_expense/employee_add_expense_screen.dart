@@ -20,6 +20,7 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
   var amountController = TextEditingController();
   var vehicleNumberController = TextEditingController();
   var purposeController = TextEditingController();
+  late DateTime today;
 
   @override
   Widget build(BuildContext context) {
@@ -182,14 +183,17 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
   }
 
   Future<void> addExpense() async {
-    await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employeeId).collection("History").add(
+    var currentTime = getCurrentTime();
+    var expenseId = getExpenseId();
+    await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employeeId).collection("History").doc(expenseId).set(
       EmployeeExpenseModel(
           amount: int.parse(amountController.text),
           purpose: purposeController.text,
           photo: "",
           status: "Pending",
-          time: getCurrentTime(),
-          vehicleNumber: vehicleNumberController.text
+          time: currentTime,
+          vehicleNumber: vehicleNumberController.text,
+          expenseId: expenseId
       ).toMap()
     ).then((value){
       Navigator.pop(context);
@@ -199,7 +203,12 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
   }
 
   String getCurrentTime() {
-    DateTime today = DateTime.now();
+    today = DateTime.now();
     return "${today.hour}:${today.minute}  ${today.day}-${today.month}-${today.year}";
+  }
+
+  getExpenseId() {
+    var x = today.year%100;
+    return "${widget.employeeId}${today.hour}${today.minute}${today.month}${x}2";
   }
 }

@@ -127,7 +127,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployeeAdvanceScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeAdvanceScreen(employeeId: widget.employeeId,)));
                           },
                           child: Column(
                             children: [
