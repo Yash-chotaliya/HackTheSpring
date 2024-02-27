@@ -46,7 +46,7 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
             Container(
               width: double.maxFinite,
               decoration: const BoxDecoration(
-                  color: Color(0xFF9b51e0),
+                  color: Color(0xFF3b72ff),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))
               ),
               padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 20),
@@ -79,7 +79,7 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF9b51e0),
+        backgroundColor: Color(0xFF3b72ff),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAddExpenseScreen(employeeId: widget.employeeId)));
         },

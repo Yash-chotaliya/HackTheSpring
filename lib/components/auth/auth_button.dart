@@ -18,7 +18,7 @@ class AuthButton extends StatelessWidget{
       child: ElevatedButton(
           onPressed: onTap,
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF9652f9)),
+              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF3b72ff)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),

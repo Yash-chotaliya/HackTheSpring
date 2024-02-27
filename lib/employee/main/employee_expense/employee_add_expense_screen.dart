@@ -32,7 +32,7 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
         height: double.maxFinite,
         width: double.maxFinite,
         child: Card(
-          color: const Color(0xFF9b51e0),
+          color: const Color(0xFF3b72ff),
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -137,7 +137,7 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xff1707c7),
+                            color: const Color(0xff0d0080),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           margin: const EdgeInsets.only(right: 10),
