@@ -52,9 +52,7 @@ class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
                 ],
               ),
             ),
-            Container(
-              height: 600,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: widget.employeeSalaryList.length,

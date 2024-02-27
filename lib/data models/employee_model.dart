@@ -128,3 +128,26 @@ class EmployeeAdvanceModel{
     };
   }
 }
+
+class EmployeeRecentActivityModel{
+  final String activityId;
+  final String time;
+  final String feature;
+  final String status;
+
+  EmployeeRecentActivityModel({
+    required this.activityId,
+    required this.time,
+    required this.feature,
+    required this.status
+  });
+
+  toMap(){
+    return {
+      "activityId": activityId,
+      "time": time,
+      "feature": feature,
+      "status": status
+    };
+  }
+}

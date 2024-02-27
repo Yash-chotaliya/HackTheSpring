@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/components/employee_recent_activity.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
@@ -26,11 +27,13 @@ class EmployeeMainScreen extends StatefulWidget{
 class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
 
   List<EmployeeSalaryModel> employeeSalaryList = [];
+  List<EmployeeRecentActivityModel> employeeRecentActivityList = [];
 
   @override
   void initState() {
     super.initState();
     getEmployeeSalary();
+    getEmployeeRecentActivities();
   }
 
   @override
@@ -96,65 +99,99 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                 ],
               ),
             ),
-            Card(
-              color: const Color(0xFFFFFFFF),
-              elevation: 10,
-              margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      width: double.maxFinite,
-                      alignment: Alignment.centerLeft,
-                      child: const Text("Features", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
+                    Card(
+                      color: Colors.white,
+                      elevation: 10,
+                      margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.maxFinite,
+                              alignment: Alignment.centerLeft,
+                              child: const Text("Features", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
+                            ),
+                            const SizedBox(height: 10,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployeeDashboardScreen()));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Image.asset("assets/images/dashboard_icon.png"),
+                                      const SizedBox(height: 5,),
+                                      const Text("Dashboard", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15),)
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeAdvanceScreen(employeeId: widget.employeeId,)));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Image.asset("assets/images/advance_icon.png"),
+                                      const SizedBox(height: 5),
+                                      const Text("Advance",style: TextStyle(color: Color(0xff03ab00),fontSize: 15))
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeExpenseScreen(employeeId: widget.employeeId,)));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Image.asset("assets/images/expense_icon.png"),
+                                      const SizedBox(height: 5),
+                                      const Text("Expense",style: TextStyle(color: Color(0xFFc498f1),fontSize: 15))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployeeDashboardScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/dashboard_icon.png"),
-                              const SizedBox(height: 5,),
-                              const Text("Dashboard", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15),)
-                            ],
-                          ),
+                    Card(
+                      color: const Color(0xFFFFFFFF),
+                      elevation: 10,
+                      margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              width: double.maxFinite,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Recent Activities", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
+                                  Text("View All", style: TextStyle(color: Colors.black, fontSize: 15),),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10,),
+                            getLatestActivity(0),
+                            getLatestActivity(1)
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeAdvanceScreen(employeeId: widget.employeeId,)));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/advance_icon.png"),
-                              const SizedBox(height: 5),
-                              const Text("Advance",style: TextStyle(color: Color(0xff03ab00),fontSize: 15))
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeExpenseScreen(employeeId: widget.employeeId,)));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/expense_icon.png"),
-                              const SizedBox(height: 5),
-                              const Text("Expense",style: TextStyle(color: Color(0xFFc498f1),fontSize: 15))
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
+                      ),
+                    ),
+                    const SizedBox(height: 20,)
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -180,12 +217,40 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
               expense: doc.get("expense")));
         });
       }
+      print(employeeSalaryList.length);
+    }).catchError((error){
+      print(error.toString());
+    });
+  }
+
+  Future<void> getEmployeeRecentActivities() async {
+    await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(widget.employeeId).collection("History").get().then((docSnapShot){
+      for (var doc in docSnapShot.docs){
+        setState(() {
+          employeeRecentActivityList.insert(0,EmployeeRecentActivityModel(
+          activityId: doc.get("activityId"),
+          time: doc.get("time"),
+          feature: doc.get("feature"),
+          status: doc.get("status")));
+        });
+      }
+      print(employeeRecentActivityList.length);
+    }).catchError((error){
+      print(error.toString());
     });
   }
 
   getLatestSalary(int index) {
-    if(employeeSalaryList.isNotEmpty)
+    if(employeeSalaryList.isNotEmpty) {
       return EmployeeSalaryCard(employeeSalaryModel: employeeSalaryList[index]);
+    }
+    return Container();
+  }
+
+  getLatestActivity(int index){
+    if(employeeRecentActivityList.isNotEmpty) {
+      return EmployeeRecentActivity(employeeRecentActivityModel: employeeRecentActivityList[index],);
+    }
     return Container();
   }
 }
