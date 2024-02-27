@@ -64,9 +64,7 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
                 ],
               ),
             ),
-            Container(
-              height: 610,
-              margin: const EdgeInsets.only(bottom: 50),
+            Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: employeeExpenseList.length,
