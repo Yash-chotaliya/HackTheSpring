@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_expense.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
+import 'package:hack_the_spring/data%20models/employer_model.dart';
 
 class EmployeeAddExpenseScreen extends StatefulWidget{
   final String employeeId;
@@ -195,8 +196,23 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
           vehicleNumber: vehicleNumberController.text,
           expenseId: expenseId
       ).toMap()
-    ).then((value){
-      Navigator.pop(context);
+    ).then((value) async {
+      await FirebaseFirestore.instance.collection("Employer Petrol Expense").doc(expenseId).set(
+        EmployerExpenseModel(
+            employeeId: widget.employeeId,
+            expenseId: expenseId,
+            amount: int.parse(amountController.text),
+            purpose: purposeController.text,
+            photo: "",
+            status: "Pending",
+            time: currentTime,
+            vehicleNumber: vehicleNumberController.text
+        ).toMap()
+      ).then((value){
+        Navigator.pop(context);
+      }).catchError((error){
+        print(error.toString());
+      });
     }).catchError((onError){
       print(onError.toString());
     });

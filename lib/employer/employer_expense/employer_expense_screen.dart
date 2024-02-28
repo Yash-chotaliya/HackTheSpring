@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/employer_expense.dart';
+import '../../data models/employer_model.dart';
 
 class EmployerExpenseScreen extends StatefulWidget{
   const EmployerExpenseScreen({super.key});
@@ -8,6 +12,16 @@ class EmployerExpenseScreen extends StatefulWidget{
 }
 
 class _EmployerExpenseScreenState extends State<EmployerExpenseScreen> {
+
+  List<EmployerExpenseModel> employerExpenseList = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    getExpenses();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +59,43 @@ class _EmployerExpenseScreenState extends State<EmployerExpenseScreen> {
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: employerExpenseList.length,
+                itemBuilder: (context, index) {
+                  return listItemLay(context,index);
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> getExpenses() async {
+    await FirebaseFirestore.instance.collection("Employer Petrol Expense").get().then((docSnapShot){
+      for( var doc in docSnapShot.docs){
+        setState(() {
+          employerExpenseList.insert(0, EmployerExpenseModel(
+            employeeId: doc.get("employeeId"),
+            expenseId: doc.get("expenseId"),
+            amount: doc.get("amount"),
+            purpose: doc.get("purpose"),
+            photo: doc.get("photo"),
+            status: doc.get("status"),
+            time: doc.get("time"),
+            vehicleNumber: doc.get("vehicleNumber"),
+          ));
+        });
+      }
+    }).catchError((error){
+      print(error.toString());
+    });
+  }
+
+  Widget listItemLay(BuildContext context, int index) {
+    return EmployerExpenseCard(employerExpenseModel: employerExpenseList[index],);
   }
 }

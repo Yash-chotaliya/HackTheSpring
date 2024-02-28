@@ -110,10 +110,10 @@ class EmployeeExpenseModel{
 }
 
 class EmployeeAdvanceModel{
-  final String advanceId;
-  final int amount;
-  final String purpose;
-  final String issuedDate;
+  String advanceId;
+  int amount;
+  String purpose;
+  String issuedDate;
 
   EmployeeAdvanceModel({
     required this.advanceId,
@@ -133,10 +133,10 @@ class EmployeeAdvanceModel{
 }
 
 class EmployeeRecentActivityModel{
-  final String activityId;
-  final String time;
-  final String feature;
-  final String status;
+  String activityId;
+  String time;
+  String feature;
+  String status;
 
   EmployeeRecentActivityModel({
     required this.activityId,

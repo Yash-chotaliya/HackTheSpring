@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/data%20models/employer_model.dart';
 import '../../components/employer_advance.dart';
 import '../../data models/employee_model.dart';
 
@@ -133,8 +134,20 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
             purpose: purposeController.text,
             issuedDate: currentTime
         ).toMap()
-    ).then((value){
-      Navigator.pop(context);
+    ).then((value) async {
+      await FirebaseFirestore.instance.collection("Employer Advance").doc(advanceId).set(
+        EmployerAdvanceModel(
+            employeeId: employeeIdController.text,
+            advanceId: advanceId,
+            amount: int.parse(amountController.text),
+            purpose: purposeController.text,
+            issuedDate: currentTime
+        ).toMap()
+      ).then((value){
+        Navigator.pop(context);
+      }).catchError((error){
+        print(error.toString());
+      });
     }).catchError((onError){
       print(onError.toString());
     });

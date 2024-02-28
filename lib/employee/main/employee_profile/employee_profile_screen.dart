@@ -151,9 +151,9 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
       setState(() {
         employeeDetails = EmployeeDetailsModel(
             email: details.get("email"),
-            employeeId: details.get("employee Id"),
+            employeeId: details.get("employeeId"),
             lastlogin: details.get("lastlogin"),
-            mobileNumber: details.get("mobile number"),
+            mobileNumber: details.get("mobileNumber"),
             name: details.get("name"),
             photo: details.get("photo"),
             password: details.get("password")
