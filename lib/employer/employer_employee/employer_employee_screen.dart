@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/components/employer_employee.dart';
 
+import '../../data models/employee_model.dart';
 import 'employer_add_employee_screen.dart';
 
 class EmployerEmployeeScreen extends StatefulWidget{
@@ -10,6 +13,14 @@ class EmployerEmployeeScreen extends StatefulWidget{
 }
 
 class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
+  List<EmployeeDetailsModel> employeeDetailsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getAllEmployees();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,16 +82,19 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                     onChanged: (value) {
                       // Implement search functionality here
                     },
-
                   ),
-
-
                 ],
-
-
               ),
             ),
-
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: employeeDetailsList.length,
+                itemBuilder: (context, index) {
+                  return listItemLay(context,index);
+                },
+              ),
+            ),
           ],
 
 
@@ -101,9 +115,29 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
  
   }
 
+  void getAllEmployees() {
+      FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
+        for(var doc in docSnapShot.docs){
+          setState(() {
+            employeeDetailsList.insert(0, EmployeeDetailsModel(
+                employeeId: doc.get("employeeId"),
+                email: doc.get("email"),
+                lastlogin: doc.get("lastlogin"),
+                mobileNumber: doc.get("mobileNumber"),
+                name: doc.get("name"),
+                photo: doc.get("photo"),
+                password: doc.get("password")));
+          });
+        }
 
+      }).catchError((error){
+        print(error.toString());
+      });
+  }
 
-
+  Widget listItemLay(BuildContext context, int index) {
+    return EmployerEmployeeCard(employeeDetailsModel: employeeDetailsList[index]);
+  }
 }
 
 

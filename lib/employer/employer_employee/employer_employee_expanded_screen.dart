@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
+import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
 
 import '../../components/employee_profile.dart';
+import '../../employee/main/employee_advance/employee_advance_screen.dart';
+import '../../employee/main/employee_expense/employee_expense_screen.dart';
+import '../../employee/main/employee_salary/employee_salary_screen.dart';
 
 class EmployerEmployeeExpandedScreen extends StatefulWidget{
   final EmployeeDetailsModel employeeDetailsModel;
@@ -99,7 +103,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                   children: [
                     InkWell(
                       onTap: (){
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmployeeDashboardScreen()));
                       },
                       child: Column(
                         children: [
@@ -111,7 +115,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeSalaryScreen(employeeSalaryList: [],)));
                       },
                       child: Column(
                         children: [
@@ -123,7 +127,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAdvanceScreen(employeeId: widget.employeeDetailsModel.employeeId,)));
                       },
                       child: Column(
                         children: [
@@ -135,7 +139,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeExpenseScreen(employeeId: widget.employeeDetailsModel.employeeId,)));
                       },
                       child: Column(
                         children: [
