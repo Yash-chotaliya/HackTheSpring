@@ -1,6 +1,11 @@
-empId = year(2) + month(2) + day(2) + hour(2) + minute(2) + sec(2)
-salaryId = empId + month(2) + year(4) + 1
-expenseId = empID + hour(2) + minute(2) + month(2) + year(2) + 2
-advanceId = empId + hour(2) + minute(2) + month(2) + year(2) + 3
-recentActivityId = empId + hour(2) + minute(2) + month(2) + year(2) + 4
-time = hour(2) + ":" + minute(2) + "  " + day(2) + "-" + month(2) + "-" + year(4)
+employee->
+
+    empId = year(2) + month(2) + day(2) + hour(2) + minute(2) + sec(2)
+    salaryId = empId + month(2) + year(4) + 1
+    expenseId = empID + hour(2) + minute(2) + month(2) + year(2) + 2
+    advanceId = empId + hour(2) + minute(2) + month(2) + year(2) + 3
+    recentActivityId = empId + hour(2) + minute(2) + month(2) + year(2) + 4
+    time = hour(2) + ":" + minute(2) + "  " + day(2) + "-" + month(2) + "-" + year(4)
+
+employer->
+    advanceId = year(2) + month(2) + hour(2) + minute(2) + 3

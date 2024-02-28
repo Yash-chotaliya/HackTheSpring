@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/components/employer_advance.dart';
 
+import '../../data models/employer_model.dart';
 import 'employer_add_advance_screen.dart';
 
 class EmployerAdvanceScreen extends StatefulWidget{
@@ -10,6 +13,15 @@ class EmployerAdvanceScreen extends StatefulWidget{
 }
 
 class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
+
+  List<EmployerAdvanceModel> employerAdvanceList =  [];
+
+  @override
+  void initState() {
+    super.initState();
+    getAdvances();
+  }
+
   @override
   Widget build(BuildContext context) {
        return Scaffold(
@@ -47,6 +59,15 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
                    ],
                  ),
                ),
+               Expanded(
+                 child: ListView.builder(
+                   scrollDirection: Axis.vertical,
+                   itemCount: employerAdvanceList.length,
+                   itemBuilder: (context, index) {
+                     return listItemLay(context,index);
+                   },
+                 ),
+               ),
              ],
            ),
          ),
@@ -58,5 +79,25 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
            child: const Icon(Icons.add, color: Colors.white,),
          ),
        );
+  }
+
+  Future<void> getAdvances() async {
+    await FirebaseFirestore.instance.collection("Employer Advance").get().then((docSnapShot){
+      for( var doc in docSnapShot.docs){
+        setState(() {
+          employerAdvanceList.insert(0, EmployerAdvanceModel(
+              employeeId: doc.get("employeeId"),
+              advanceId: doc.get("advanceId"),
+              amount: doc.get("amount"),
+              purpose: doc.get("purpose"),
+              issuedDate: doc.get("issuedDate")
+          ));
+        });
+      }
+    });
+  }
+
+  Widget listItemLay(BuildContext context, int index) {
+    return EmployerAdvanceCard(employerAdvanceModel: employerAdvanceList[index]);
   }
 }
