@@ -87,6 +87,7 @@ class EmployerEmployeeCard extends StatelessWidget{
                 ),
               ),
             ),
+
             Container(
               child: Icon(Icons.keyboard_arrow_right_outlined),
             ),
