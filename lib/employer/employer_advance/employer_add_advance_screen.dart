@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../components/employer_advance.dart';
+import '../../data models/employee_model.dart';
 
 class EmployerAddAdvanceScreen extends StatefulWidget{
   const EmployerAddAdvanceScreen({super.key});
@@ -9,10 +11,12 @@ class EmployerAddAdvanceScreen extends StatefulWidget{
 }
 
 class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
+
   var employeeIdController = TextEditingController();
   var amountController = TextEditingController();
   var purposeController = TextEditingController();
   late DateTime today;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +82,7 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.pop(context);
-
+                            addAdvance();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -95,8 +98,7 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
                         ),
                         InkWell(
                           onTap: (){
-
-                           // resetData();
+                           resetData();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -119,5 +121,38 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
           ),
         )
     );
+  }
+
+  Future<void> addAdvance() async {
+    var currentTime = getCurrentTime();
+    var advanceId = getAdvanceId();
+    await FirebaseFirestore.instance.collection("Employee Advance").doc(employeeIdController.text).collection("History").doc(advanceId).set(
+        EmployeeAdvanceModel(
+            advanceId: advanceId,
+            amount: int.parse(amountController.text),
+            purpose: purposeController.text,
+            issuedDate: currentTime
+        ).toMap()
+    ).then((value){
+      Navigator.pop(context);
+    }).catchError((onError){
+      print(onError.toString());
+    });
+  }
+
+  String getCurrentTime() {
+    today = DateTime.now();
+    return "${today.hour}:${today.minute}  ${today.day}-${today.month}-${today.year}";
+  }
+
+  getAdvanceId() {
+    var x = today.year%100;
+    return "${employeeIdController.text}${today.hour}${today.minute}${today.month}${x}3";
+  }
+
+  void resetData() {
+    employeeIdController.clear();
+    amountController.clear();
+    purposeController.clear();
   }
 }
