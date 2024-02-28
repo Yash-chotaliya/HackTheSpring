@@ -12,60 +12,52 @@ class EmployeeAdvanceCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 350,
-      child: Card(
-        color: Colors.white,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Expanded(
+        child: Card(
+          color: Colors.white,
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                margin: EdgeInsets.only(left: 10, right: 10, top: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 60,
-                      child: Image.asset("assets/images/advance_icon.png"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          EmployeeAdvanceText(hint: "Date", text: employeeAdvanceModel.issuedDate, icon: const Icon(Icons.calendar_today)),
-                        ],
-                      ),
-                    )
+                    Image.asset("assets/images/advance_icon.png", height: 70),
+                    SizedBox(height: 5,),
+                    Text(employeeAdvanceModel.issuedDate.substring(0,6), style: TextStyle(color: Color(0xFF6C6C6C))),
+                    SizedBox(height: 5,)
                   ],
                 ),
-                SizedBox(height: 10,),
-                EmployeeAdvanceText(hint: "Amount", text: employeeAdvanceModel.amount.toString(), icon: const Icon(Icons.currency_rupee)),
-                const SizedBox(height: 10,),
-                Container(
-                    width: double.maxFinite,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Colors.black,
-                                width: 1
-                            )
-                        )
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Purpose", style: TextStyle(fontSize: 12)),
-                        Text(employeeAdvanceModel.purpose, style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    )
-                )
-              ],
-            )
-        ),
-      ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(top: 5),
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Amount ₹ ${employeeAdvanceModel.amount}", style: TextStyle(fontWeight: FontWeight.bold),),
+                      SizedBox(height: 8,),
+                      EmployeeAdvanceText(
+                          hint: "Purpose",
+                          text: employeeAdvanceModel.purpose
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 5, right: 10, left: 10),
+                child: Text(employeeAdvanceModel.issuedDate.substring(6), style: TextStyle(color: Color(0xFF6C6C6C))),
+              )
+            ],
+          ),
+        )
     );
   }
 }
@@ -73,13 +65,11 @@ class EmployeeAdvanceCard extends StatelessWidget{
 class EmployeeAdvanceText extends StatelessWidget{
   final String hint;
   final String text;
-  final Widget icon;
 
   const EmployeeAdvanceText({
     super.key,
     required this.hint,
     required this.text,
-    required this.icon
   });
 
   @override
@@ -97,15 +87,8 @@ class EmployeeAdvanceText extends StatelessWidget{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(hint, style: const TextStyle(fontSize: 12),),
-          const SizedBox(height: 3,),
-          Row(
-            children: [
-              icon,
-              const SizedBox(width: 5,),
-              Text(text, style: const TextStyle(fontWeight: FontWeight.bold),),
-            ],
-          ),
+          Text("$hint :", style: const TextStyle(fontSize: 12),),
+          Text(text, style: const TextStyle(fontWeight: FontWeight.bold),),
           const SizedBox(height: 2,)
         ],
       ),
