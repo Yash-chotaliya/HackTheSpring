@@ -6,6 +6,7 @@ import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
 import 'package:hack_the_spring/employee/main/employee_expense/employee_expense_screen.dart';
 import 'package:hack_the_spring/employee/main/employee_profile/employee_profile_screen.dart';
+import 'package:hack_the_spring/employee/main/employee_recent_activity/employee_recent_activity_screen.dart';
 import 'package:hack_the_spring/employee/main/employee_salary/employee_salary_screen.dart';
 
 import 'employee_advance/employee_advance_screen.dart';
@@ -166,25 +167,28 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                       color: const Color(0xFFFFFFFF),
                       elevation: 10,
                       margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              width: double.maxFinite,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Recent Activities", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
-                                  Text("View All", style: TextStyle(color: Colors.black, fontSize: 15),),
-                                ],
-                              ),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.maxFinite,
+                            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Recent Activities", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
+                                InkWell(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeRecentActivityScreen(employeeRecentActivityList: employeeRecentActivityList,)));
+                                    },
+                                    child: Text("View All", style: TextStyle(color: Colors.black, fontSize: 15),)
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 10,),
-                            getLatestActivity(0),
-                            getLatestActivity(1)
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 10,),
+                          getLatestActivity(0),
+                          getLatestActivity(1)
+                        ],
                       ),
                     ),
                     const SizedBox(height: 20,)
@@ -217,7 +221,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
               expense: doc.get("expense")));
         });
       }
-      print(employeeSalaryList.length);
     }).catchError((error){
       print(error.toString());
     });
@@ -234,7 +237,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
           status: doc.get("status")));
         });
       }
-      print(employeeRecentActivityList.length);
     }).catchError((error){
       print(error.toString());
     });
