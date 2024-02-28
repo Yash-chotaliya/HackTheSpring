@@ -1,6 +1,4 @@
-import 'dart:ffi';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:hack_the_spring/employer/employer_main_screen.dart';
@@ -68,7 +66,7 @@ class _EmployerSignInState extends State<EmployerSignIn> {
 
                       InkWell(
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeSignIn()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeSignIn()));
                           },
 
                           child: const Text("Employee", style: TextStyle(color: Colors.black, fontSize: 15),)),
@@ -80,8 +78,8 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                   const SizedBox(height: 50,),
                   AuthTextField(hint: "Employer Id", controller: employeeIdController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
                   AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
-                  SizedBox(height: 20,),
-                  Text(errorMessage, style: TextStyle(color: Colors.red),)
+                  const SizedBox(height: 20,),
+                  Text(errorMessage, style: const TextStyle(color: Colors.red),)
                 ],
               ),
               Container(
@@ -92,18 +90,18 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                   children: [
                     AuthButton(
                         onTap: (){
-                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerMainScreen(employerId: "", name: "")));
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerMainScreen(employerId: "", name: "")));
                         },
                         btnTxt: "SIGN IN"
                     ),Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account? ",style: TextStyle(color:Color(0x77212121), fontSize: 15,),),
+                        const Text("Don't have an account? ",style: TextStyle(color:Color(0x77212121), fontSize: 15,),),
                         InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignUp()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignUp()));
                             },
-                            child: Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),))
+                            child: const Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),))
 
 
 

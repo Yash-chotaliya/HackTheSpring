@@ -1,8 +1,5 @@
-import 'dart:ffi';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:hack_the_spring/employer/employer_signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/auth/auth_button.dart';
@@ -74,8 +71,8 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   AuthTextField(hint: "Username", controller: usernameController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
                   AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
 
-                  SizedBox(height: 20,),
-                  Text(errorMessage, style: TextStyle(color: Colors.red),)
+                  const SizedBox(height: 20,),
+                  Text(errorMessage, style: const TextStyle(color: Colors.red),)
                 ],
               ),
               Container(
@@ -92,13 +89,13 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Already have an account? ",style: TextStyle(color: Color(0x77212121), fontSize: 15,),),
+                          const Text("Already have an account? ",style: TextStyle(color: Color(0x77212121), fontSize: 15,),),
                           InkWell(
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignIn()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignIn()));
                               },
 
-                              child: Text("SIGN IN",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
+                              child: const Text("SIGN IN",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
                         ],
                       )
 

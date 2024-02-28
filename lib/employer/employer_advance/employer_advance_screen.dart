@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'employer_add_advance_screen.dart';
 
 class EmployerAdvanceScreen extends StatefulWidget{
   const EmployerAdvanceScreen({super.key});
@@ -12,7 +13,6 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
   @override
   Widget build(BuildContext context) {
        return Scaffold(
-
          body: Container(
            width: double.maxFinite,
            height: double.maxFinite,
@@ -51,11 +51,11 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
            ),
          ),
          floatingActionButton: FloatingActionButton(
-           backgroundColor: Color(0xFF3b72ff),
+           backgroundColor: const Color(0xFF3b72ff),
            onPressed: () {
-
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerAddAdvanceScreen()));
            },
-           child: Icon(Icons.add, color: Colors.white,),
+           child: const Icon(Icons.add, color: Colors.white,),
          ),
        );
   }
