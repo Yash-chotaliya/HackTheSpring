@@ -64,7 +64,6 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
                     child: Card(
                       color: Colors.white,
                       margin: const EdgeInsets.only(left: 20, right: 20),
-                      elevation: 10,
                       child: Column(
                         children: [
                           const SizedBox(height: 40,),
@@ -121,7 +120,6 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
                 margin: const EdgeInsets.only(top: 10),
                 child: Card(
                   margin: const EdgeInsets.only(left: 20, right: 20),
-                  elevation: 10,
                   color: Colors.white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

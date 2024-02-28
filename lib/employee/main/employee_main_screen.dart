@@ -106,7 +106,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                   children: [
                     Card(
                       color: Colors.white,
-                      elevation: 10,
                       margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -165,7 +164,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                     ),
                     Card(
                       color: const Color(0xFFFFFFFF),
-                      elevation: 10,
                       margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
                       child: Column(
                         children: [
