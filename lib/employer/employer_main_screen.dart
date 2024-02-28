@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
-import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
-import 'package:hack_the_spring/employer/add_employee/add_employee_screen.dart';
+import 'package:hack_the_spring/employer/employer_employee/employer_employee_screen.dart';
 import 'package:hack_the_spring/employer/employer_profile/employer_profile_screen.dart';
 import 'package:hack_the_spring/employer/employer_salary/employer_salary_screen.dart';
-
 import 'employer_advance/employer_advance_screen.dart';
 import 'employer_dashboard/employer_dashboard_screen.dart';
 import 'employer_expense/employer_expense_screen.dart';
@@ -91,15 +89,11 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployeeDashboardScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerEmployeeScreen()));
                           },
                           child: Column(
                             children: [
-                              InkWell(
-                                  onTap:(){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddEmployeeScreen()));
-                                    },
-                                  child: Image.asset("assets/images/employeeIcon.png")),
+                              Image.asset("assets/images/employeeIcon.png"),
                               const SizedBox(height: 5,),
                               const Text("Employee", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15,fontWeight:FontWeight.bold),)
                             ],

@@ -5,6 +5,7 @@ class EmployeeDetailsModel{
   String email;
   String lastlogin;
   String photo;
+  String password;
 
   EmployeeDetailsModel({
     required this.employeeId,
@@ -12,7 +13,8 @@ class EmployeeDetailsModel{
     required this.lastlogin,
     required this.mobileNumber,
     required this.name,
-    required this.photo
+    required this.photo,
+    required this.password
   });
 
   toMap(){
@@ -22,7 +24,8 @@ class EmployeeDetailsModel{
       "email":email,
       "mobileNumber":mobileNumber,
       "lastlogin":lastlogin,
-      "photo":photo
+      "photo":photo,
+      "password":password
     };
   }
 }
