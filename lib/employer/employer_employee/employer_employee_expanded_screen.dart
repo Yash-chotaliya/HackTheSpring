@@ -103,7 +103,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                   children: [
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmployeeDashboardScreen()));
+
                       },
                       child: Column(
                         children: [
@@ -115,7 +115,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeSalaryScreen(employeeSalaryList: [],)));
+
                       },
                       child: Column(
                         children: [
@@ -127,7 +127,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAdvanceScreen(employeeId: widget.employeeDetailsModel.employeeId,)));
+
                       },
                       child: Column(
                         children: [
@@ -139,7 +139,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                     ),
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeExpenseScreen(employeeId: widget.employeeDetailsModel.employeeId,)));
+
                       },
                       child: Column(
                         children: [
