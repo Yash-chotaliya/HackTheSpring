@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
+import 'package:hack_the_spring/employer/employer_employee/employer_employee_expanded_screen.dart';
 
 class EmployerAddEmployeeTextField extends StatelessWidget{
   final String hint;
@@ -57,38 +58,43 @@ class EmployerEmployeeCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder:(context)=> EmployerEmployeeExpandedScreen(employeeDetailsModel: employeeDetailsModel,)));
+      },
+      child: Card(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
 
-          Container(
-            height: 50,
-              width: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Image.asset("assets/images/profile_image.png"),
-           ),
-          Expanded(
-            child: Container(
+            Container(
+              height: 50,
+                width: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Image.asset("assets/images/profile_image.png"),
+             ),
+            Expanded(
+              child: Container(
 
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: [
-                     Text(employeeDetailsModel.name),
-                     Text(employeeDetailsModel.employeeId)
-                ],
+                  children: [
+                       Text(employeeDetailsModel.name),
+                       Text(employeeDetailsModel.employeeId)
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            child: Icon(Icons.keyboard_arrow_right_outlined),
-          ),
-        ],
-      )
-      ,
+            Container(
+              child: Icon(Icons.keyboard_arrow_right_outlined),
+            ),
+          ],
+        )
+        ,
 
+      ),
     );
   }
 
