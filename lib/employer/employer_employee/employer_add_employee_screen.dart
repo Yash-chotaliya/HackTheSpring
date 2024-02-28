@@ -14,6 +14,8 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
   var emailController = TextEditingController();
   var mobileNumberController = TextEditingController();
   var nameController = TextEditingController();
+  var basicSalaryController = TextEditingController();
+  var ctcController = TextEditingController();
   late DateTime today;
 
   @override
@@ -124,6 +126,24 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                     ),
                   ),
                   Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: EmployerAddEmployeeTextField(
+                      hint: 'Basic Salary',
+                      controller: basicSalaryController,
+                      inputType: TextInputType.number,
+                      prefixIcon: const Icon(Icons.currency_rupee),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: EmployerAddEmployeeTextField(
+                      hint: 'CTC',
+                      controller: ctcController,
+                      inputType: TextInputType.number,
+                      prefixIcon: const Icon(Icons.currency_rupee),
+                    ),
+                  ),
+                  Container(
                     width: double.maxFinite,
                     margin: const EdgeInsets.only(bottom: 20, top: 5),
                     child: Row(
@@ -163,7 +183,8 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                         )
                       ],
                     ),
-                  )
+                  ),
+
                 ],
               ),
             ),
@@ -181,6 +202,7 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
   Future<void> addEmployee() async {
     today = DateTime.now();
     var employeeId = getEmployeeId();
+    var salaryId = getSalaryId(employeeId);
     await FirebaseFirestore.instance.collection("Employees").doc(employeeId).set(
         EmployeeDetailsModel(
             employeeId: employeeId,
@@ -192,7 +214,25 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
             password: employeeId
         ).toMap()
     ).then((value){
-      Navigator.pop(context);
+      FirebaseFirestore.instance.collection("Employee Salary").doc(employeeId).set(
+        EmployeeSalaryModel(
+            salaryId: salaryId,
+            allowance: 0,
+            basicSalary: int.parse(basicSalaryController.text),
+            bonus: 0,
+            ctc: int.parse(ctcController.text),
+            deduction: 0,
+            inHand: int.parse(basicSalaryController.text),
+            month: today.month.toString(),
+            year: today.year,
+            status: "Pending",
+            expense: 0
+        ).toMap()
+      ).then((value){
+        Navigator.pop(context);
+      }).catchError((onError){
+        print(onError.toString());
+      });
     }).catchError((error){
       print(error.toString());
     });
@@ -201,5 +241,9 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
   String getEmployeeId() {
     var x = today.year % 100;
     return "$x${today.month}${today.day}${today.hour}${today.minute}${today.second}";
+  }
+
+  String getSalaryId(String employeeId) {
+    return  "$employeeId${today.month}${today.year}1";
   }
 }

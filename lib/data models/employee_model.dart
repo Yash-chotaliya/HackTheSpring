@@ -38,7 +38,6 @@ class EmployeeSalaryModel{
   int ctc;
   int deduction;
   int inHand;
-  int daysLeft;
   String month;
   int year;
   String status;
@@ -52,7 +51,6 @@ class EmployeeSalaryModel{
     required this.ctc,
     required this.deduction,
     required this.inHand,
-    required this.daysLeft,
     required this.month,
     required this.year,
     required this.status,
@@ -70,7 +68,6 @@ class EmployeeSalaryModel{
       "inHand": inHand,
       "month": month,
       "year": year,
-      "daysLeft": daysLeft,
       "status": status,
       "expense": expense,
     };

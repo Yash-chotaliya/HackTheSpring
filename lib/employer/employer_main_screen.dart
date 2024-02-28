@@ -180,7 +180,6 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
               ctc: doc.get("ctc"),
               deduction: doc.get("deduction"),
               inHand: doc.get("inHand"),
-              daysLeft: doc.get("daysLeft"),
               month: doc.get("month"),
               year: doc.get("year"),
               status: doc.get("status"),
