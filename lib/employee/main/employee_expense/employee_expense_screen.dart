@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/employee/main/employee_expense/employee_add_expense_screen.dart';
 
 import '../../../components/employee_expense.dart';
 import '../../../data models/employee_model.dart';
+import 'employee_add_expense_screen.dart';
 
 class EmployeeExpenseScreen extends StatefulWidget{
   final String employeeId;
@@ -77,11 +77,11 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF3b72ff),
+        backgroundColor: const Color(0xFF3b72ff),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAddExpenseScreen(employeeId: widget.employeeId)));
         },
-        child: Icon(Icons.add, color: Colors.white,),
+        child: const Icon(Icons.add, color: Colors.white,),
       ),
     );
   }

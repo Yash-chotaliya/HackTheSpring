@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 
-class EmployeeRecentActivity extends StatelessWidget{
+class EmployeeRecentActivity extends StatefulWidget{
   final EmployeeRecentActivityModel employeeRecentActivityModel;
 
   const EmployeeRecentActivity({
     super.key,
     required this.employeeRecentActivityModel
   });
+
+  @override
+  State<EmployeeRecentActivity> createState() => _EmployeeRecentActivityState();
+}
+
+class _EmployeeRecentActivityState extends State<EmployeeRecentActivity> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +34,12 @@ class EmployeeRecentActivity extends StatelessWidget{
               children: [
                 Row(
                   children: [
-                    Text(employeeRecentActivityModel.feature, style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+                    Text(widget.employeeRecentActivityModel.feature, style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
                     SizedBox(width: 10,),
-                    Text(employeeRecentActivityModel.status, style: TextStyle(color: Colors.blueAccent, fontSize: 15),)
+                    Text(widget.employeeRecentActivityModel.status, style: TextStyle(color: getStatusColor(), fontSize: 15),)
                   ],
                 ),
-                Text(employeeRecentActivityModel.time, style: TextStyle(color: Colors.black, fontSize: 13),)
+                Text(widget.employeeRecentActivityModel.time, style: TextStyle(color: Colors.black, fontSize: 13),)
               ],
             ),
           ),
@@ -42,10 +49,18 @@ class EmployeeRecentActivity extends StatelessWidget{
   }
 
   String getFeatureType() {
-    if(employeeRecentActivityModel.feature=="Expense"){
+    if(widget.employeeRecentActivityModel.feature=="Expense"){
       return "assets/images/expense_icon.png";
     }
     return "assets/images/advance_icon.png";
   }
 
+  Color getStatusColor(){
+    if(widget.employeeRecentActivityModel.status=="Rejected"){
+      return Colors.red;
+    }
+    else{
+      return Colors.green;
+    }
+  }
 }

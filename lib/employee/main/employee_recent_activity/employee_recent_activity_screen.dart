@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../components/employee_recent_activity.dart';
 import '../../../data models/employee_model.dart';
 

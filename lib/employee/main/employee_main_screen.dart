@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_recent_activity.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
-import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_expense/employee_expense_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_profile/employee_profile_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_recent_activity/employee_recent_activity_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_salary/employee_salary_screen.dart';
 
 import 'employee_advance/employee_advance_screen.dart';
+import 'employee_dashboard/employee_dashboard_screen.dart';
+import 'employee_expense/employee_expense_screen.dart';
+import 'employee_profile/employee_profile_screen.dart';
+import 'employee_recent_activity/employee_recent_activity_screen.dart';
+import 'employee_salary/employee_salary_screen.dart';
 
 class EmployeeMainScreen extends StatefulWidget{
   final String employeeId;
@@ -169,16 +169,16 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                         children: [
                           Container(
                             width: double.maxFinite,
-                            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                            margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Recent Activities", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
+                                const Text("Recent Activities", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
                                 InkWell(
                                     onTap: (){
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeRecentActivityScreen(employeeRecentActivityList: employeeRecentActivityList,)));
                                     },
-                                    child: Text("View All", style: TextStyle(color: Colors.black, fontSize: 15),)
+                                    child: const Text("View All", style: TextStyle(color: Colors.black, fontSize: 15),)
                                 ),
                               ],
                             ),

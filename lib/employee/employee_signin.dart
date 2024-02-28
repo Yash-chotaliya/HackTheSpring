@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employer/employer_signin.dart';
@@ -54,7 +52,7 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
                   children: [
                     InkWell(
                         onTap:(){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerSignIn()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignIn()));
 
 
                         } ,
@@ -76,8 +74,8 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
                 const SizedBox(height: 50,),
                 AuthTextField(hint: "Employee Id", controller: employeeIdController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
                 AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
-                SizedBox(height: 20,),
-                Text(errorMessage, style: TextStyle(color: Colors.red),)
+                const SizedBox(height: 20,),
+                Text(errorMessage, style: const TextStyle(color: Colors.red),)
               ],
             ),
             Container(

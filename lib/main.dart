@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
-import 'package:hack_the_spring/employee/main/employee_main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'employee/main/employee_main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
