@@ -100,7 +100,7 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
 
     FirebaseFirestore.instance.collection("Employees").get().then((employees) {
       for (var employee in employees.docs){
-        if((employee.get("employee Id").toString()==employeeId) && (employee.get("password").toString()==password)){
+        if((employee.get("employeeId").toString()==employeeId) && (employee.get("password").toString()==password)){
           savePref(employeeId, employee.get("name").toString());
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeMainScreen(employeeId: employeeId, name: employee.get("name").toString(),)));
           return;
