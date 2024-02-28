@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_expense.dart';
 import 'package:hack_the_spring/data%20models/employer_model.dart';
@@ -146,44 +147,91 @@ class _EmployerExpenseExpandedScreenState extends State<EmployerExpenseExpandedS
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: 10, top: 10),
-              color: Color(0xFF3b72ff),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 40)
-                    ),
-                    child: const Text("Approve",style: TextStyle(color: Colors.green, fontSize: 15)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 40)
-                    ),
-                    child: const Text("Reject",style: TextStyle(color: Colors.red, fontSize: 15)),
-                  )
-                ],
-              ),
-            ),
+            statusUpdateBar()
           ],
         ),
       ),
     );
+  }
+
+  Widget statusUpdateBar() {
+    if(widget.employerExpenseModel.status=="Pending"){
+      return Container(
+        padding: EdgeInsets.only(bottom: 10, top: 10),
+        color: Color(0xFF3b72ff),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                approveExpense();
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 40)
+              ),
+              child: const Text("Approve",style: TextStyle(color: Colors.green, fontSize: 15)),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                rejectExpense();
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 40)
+              ),
+              child: const Text("Reject",style: TextStyle(color: Colors.red, fontSize: 15)),
+            )
+          ],
+        ),
+      );
+    }
+    return Container();
+  }
+
+  Future<void> approveExpense() async {
+    await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.employeeId).collection("History").doc(widget.employerExpenseModel.expenseId).update(
+      {
+        "status": "Accepted"
+      }
+    ).then((value) async {
+      await FirebaseFirestore.instance.collection("Employer Petrol Expense").doc(widget.employerExpenseModel.expenseId).update(
+        {
+          "status": "Accepted"
+        }
+      ).then((value){
+        Navigator.pop(context);
+      }).catchError((onError){
+        print(onError.toString());
+      });
+    }).catchError((error){
+      print(error.toString());
+    });
+  }
+
+  Future<void> rejectExpense() async {
+    await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.employeeId).collection("History").doc(widget.employerExpenseModel.expenseId).update(
+        {
+          "status": "Rejected"
+        }
+    ).then((value){
+      FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.expenseId).update(
+        {
+          "status": "Rejected"
+        }
+      ).then((value){
+        Navigator.pop(context);
+      }).catchError((onError){
+        print(onError.toString());
+      });
+    }).catchError((error){
+      print(error.toString());
+    });
   }
 }
