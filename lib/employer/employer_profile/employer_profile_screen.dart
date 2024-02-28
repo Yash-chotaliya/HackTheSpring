@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
-import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:hack_the_spring/employer/employer_signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
