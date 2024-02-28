@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/employer/add_employee/employer_add_employee_screen.dart';
 
 class AddEmployeeScreen extends StatefulWidget{
   const AddEmployeeScreen({super.key});
@@ -49,37 +49,54 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                       const SizedBox(width: 25,),
                     ],
                   ),
-                  SizedBox(height: 10), // Add some space between the "Employees" text and the search field
+                  const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
                   TextField( // Add your new search field here
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Search...',
-                      hintStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.search, color: Colors.black),
+                      hintStyle: const TextStyle(color: Colors.black),
+                      prefixIcon: const Icon(Icons.search, color: Colors.black),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                     onChanged: (value) {
                       // Implement search functionality here
                     },
 
                   ),
+
+
                 ],
+
+
               ),
             ),
+
           ],
 
+
+
         ),
+
+
+
       ),
-    );
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF3b72ff),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerAddEmployeeScreen()));
+        },
+        child: const Icon(Icons.add, color: Colors.white,),
+      ),);
  
   }
 

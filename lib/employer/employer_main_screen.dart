@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_expense/employee_expense_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_profile/employee_profile_screen.dart';
-import 'package:hack_the_spring/employee/main/employee_salary/employee_salary_screen.dart';
 import 'package:hack_the_spring/employer/add_employee/add_employee_screen.dart';
-import 'package:hack_the_spring/employer/employer_advance_screen/employer_advance_screen.dart';
 import 'package:hack_the_spring/employer/employer_profile/employer_profile_screen.dart';
+import 'package:hack_the_spring/employer/employer_salary/employer_salary_screen.dart';
+
+import 'employer_advance/employer_advance_screen.dart';
+import 'employer_dashboard/employer_dashboard_screen.dart';
+import 'employer_expense/employer_expense_screen.dart';
 
 // import 'employee_advance/employee_advance_screen.dart';
 
@@ -57,10 +58,10 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Hello,\nSandip Majithiya", style: const TextStyle(color: Colors.white, fontSize: 20)),
+                    const Text("Hello,\nSandip Majithiya", style: TextStyle(color: Colors.white, fontSize: 20)),
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EmployerProfileScreen(employerId: "")));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerProfileScreen(employerId: "")));
                       },
                       child: CircleAvatar(
                         radius: 27,
@@ -118,7 +119,7 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                         ),
                         InkWell(
                           onTap: (){
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeExpenseScreen(employeeId: widget.employeeId,)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerExpenseScreen()));
                           },
                           child: Column(
                             children: [
@@ -128,7 +129,6 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                     const SizedBox(height: 15,),
@@ -137,7 +137,7 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployeeDashboardScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerDashboardScreen()));
                           },
                           child: Column(
                             children: [
@@ -149,7 +149,7 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                         ),
                         InkWell(
                           onTap: (){
-
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmployerSalaryScreen()));
                           },
                           child: Column(
                             children: [
@@ -197,8 +197,9 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
   }
 
   getLatestSalary(int index) {
-    if(employeeSalaryList.isNotEmpty)
+    if(employeeSalaryList.isNotEmpty) {
       return EmployeeSalaryCard(employeeSalaryModel: employeeSalaryList[index]);
+    }
     return Container();
   }
 }
