@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/data%20models/employee_model.dart';
 
 class EmployerAddEmployeeTextField extends StatelessWidget{
   final String hint;
@@ -44,4 +45,51 @@ class EmployerAddEmployeeTextField extends StatelessWidget{
       ],
     );
   }
+}
+
+class EmployerEmployeeCard extends StatelessWidget{
+  final EmployeeDetailsModel employeeDetailsModel;
+
+  const EmployerEmployeeCard({
+    super.key,
+    required this.employeeDetailsModel
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+          Container(
+            height: 50,
+              width: 50,
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Image.asset("assets/images/profile_image.png"),
+           ),
+          Expanded(
+            child: Container(
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                     Text(employeeDetailsModel.name),
+                     Text(employeeDetailsModel.employeeId)
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: Icon(Icons.keyboard_arrow_right_outlined),
+          ),
+        ],
+      )
+      ,
+
+    );
+  }
+
 }
