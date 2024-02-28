@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/employer/add_employee/employer_add_employee_screen.dart';
 
-class AddEmployeeScreen extends StatefulWidget{
-  const AddEmployeeScreen({super.key});
+import 'employer_add_employee_screen.dart';
+
+class EmployerEmployeeScreen extends StatefulWidget{
+  const EmployerEmployeeScreen({super.key});
 
   @override
-  State<AddEmployeeScreen> createState() => _AddEmployeeScreenState();
+  State<EmployerEmployeeScreen> createState() => _EmployerEmployeeScreenState();
 }
 
-class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
+class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
