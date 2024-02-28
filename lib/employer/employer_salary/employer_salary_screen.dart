@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hack_the_spring/components/employer_salary.dart';
 
 class EmployerSalaryScreen extends StatefulWidget{
   const EmployerSalaryScreen({super.key});
@@ -45,9 +46,23 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return listItemLay(context,index);
+                },
+              ),
+            ),
           ],
         ),
       ),
+
     );
+  }
+
+  Widget listItemLay(BuildContext context, int index) {
+    return EmployerSalaryCard();
   }
 }
