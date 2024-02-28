@@ -1,14 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 
 
 class EmployeeSalaryScreen extends StatefulWidget{
-  final List<EmployeeSalaryModel> employeeSalaryList;
+  final String employeeId;
+  final EmployeeSalaryModel currentSalary;
 
   const EmployeeSalaryScreen({
     super.key,
-    required this.employeeSalaryList
+    required this.employeeId,
+    required this.currentSalary
   });
 
   @override
@@ -16,6 +19,14 @@ class EmployeeSalaryScreen extends StatefulWidget{
 }
 
 class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
+  List<EmployeeSalaryModel> employeeSalaryList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getEmployeeSalary();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +66,7 @@ class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: widget.employeeSalaryList.length,
+                itemCount: employeeSalaryList.length,
                 itemBuilder: (context, index) {
                   return listItemLay(context,index);
                 },
@@ -68,6 +79,33 @@ class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
   }
 
   Widget listItemLay(BuildContext context,int index){
-    return EmployeeSalaryCard(employeeSalaryModel: widget.employeeSalaryList[index]);
+    return EmployeeSalaryCard(employeeSalaryModel: employeeSalaryList[index]);
+  }
+
+  void getEmployeeSalary() {
+    FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeId).collection("History").get().then((docSnapShot){
+      for (var doc in docSnapShot.docs){
+        setState(() {
+          employeeSalaryList.insert(0, EmployeeSalaryModel(
+              salaryId: doc.get("salaryId"),
+              allowance: doc.get("allowance"),
+              basicSalary: doc.get("basicSalary"),
+              bonus: doc.get("bonus"),
+              ctc: doc.get("ctc"),
+              deduction: doc.get("deduction"),
+              inHand: doc.get("inHand"),
+              month: doc.get("month"),
+              year: doc.get("year"),
+              status: doc.get("status"),
+              expense: doc.get("expense")
+          ));
+        });
+      }
+      setState(() {
+        employeeSalaryList.insert(0, widget.currentSalary);
+      });
+    }).catchError((onError){
+      print(onError.toString());
+    });
   }
 }

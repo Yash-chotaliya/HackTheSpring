@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_recent_activity.dart';
 import 'package:hack_the_spring/components/employee_salary.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
-
 import 'employee_advance/employee_advance_screen.dart';
 import 'employee_dashboard/employee_dashboard_screen.dart';
 import 'employee_expense/employee_expense_screen.dart';
@@ -82,7 +81,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       child: InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeSalaryScreen(employeeSalaryList: employeeSalaryList,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeeSalaryScreen(employeeId: widget.employeeId, currentSalary: employeeSalaryList[0],)));
                         },
                           child: const Text("View All", style: TextStyle(color: Colors.white),)
                       ),
@@ -93,7 +92,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                     child: Row(
                       children: [
                         getLatestSalary(0),
-                        getLatestSalary(1)
                       ],
                     ),
                   )
@@ -201,24 +199,21 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
   }
 
   Future<void> getEmployeeSalary() async {
-    await FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeId).collection("History").get().then((docSnapShot){
-      for (var doc in docSnapShot.docs){
-        setState(() {
-          employeeSalaryList.insert(0,EmployeeSalaryModel(
-              salaryId: doc.get("salaryId"),
-              allowance: doc.get("allowance"),
-              basicSalary: doc.get("basicSalary"),
-              bonus: doc.get("bonus"),
-              ctc: doc.get("ctc"),
-              deduction: doc.get("deduction"),
-              inHand: doc.get("inHand"),
-              daysLeft: doc.get("daysLeft"),
-              month: doc.get("month"),
-              year: doc.get("year"),
-              status: doc.get("status"),
-              expense: doc.get("expense")));
-        });
-      }
+    await FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeId).get().then((docSnapShot){
+      setState(() {
+        employeeSalaryList.insert(0,EmployeeSalaryModel(
+            salaryId: docSnapShot.get("salaryId"),
+            allowance: docSnapShot.get("allowance"),
+            basicSalary: docSnapShot.get("basicSalary"),
+            bonus: docSnapShot.get("bonus"),
+            ctc: docSnapShot.get("ctc"),
+            deduction: docSnapShot.get("deduction"),
+            inHand: docSnapShot.get("inHand"),
+            month: docSnapShot.get("month"),
+            year: docSnapShot.get("year"),
+            status: docSnapShot.get("status"),
+            expense: docSnapShot.get("expense")));
+      });
     }).catchError((error){
       print(error.toString());
     });

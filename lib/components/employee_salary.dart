@@ -25,7 +25,6 @@ class EmployeeSalaryCard extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text("${employeeSalaryModel.month} ${employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
-                Text("${employeeSalaryModel.daysLeft} day left",style: const TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
               ],
             ),
             Container(
