@@ -58,7 +58,12 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                         },
                       ),
                       const Text("Employees", style: TextStyle(color: Colors.white, fontSize: 25),),
-                      const SizedBox(width: 25,),
+                      InkWell(
+                        child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
+                        onTap: (){
+                          getAllEmployees();
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
@@ -108,6 +113,8 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
   }
 
   Future<void> getAllEmployees() async {
+    employeeDetailsList.clear();
+
     await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
       for(var doc in docSnapShot.docs){
         setState(() {
