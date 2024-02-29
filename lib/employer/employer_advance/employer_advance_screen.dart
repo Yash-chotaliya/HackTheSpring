@@ -55,7 +55,12 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
                        },
                      ),
                      const Text("Advance", style: TextStyle(color: Colors.white, fontSize: 25),),
-                     const SizedBox(width: 25,)
+                     InkWell(
+                       child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
+                       onTap: (){
+                         getAdvances();
+                       },
+                     ),
                    ],
                  ),
                ),
@@ -82,6 +87,8 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
   }
 
   Future<void> getAdvances() async {
+    employerAdvanceList.clear();
+
     await FirebaseFirestore.instance.collection("Employer Advance").get().then((docSnapShot){
       for( var doc in docSnapShot.docs){
         setState(() {
