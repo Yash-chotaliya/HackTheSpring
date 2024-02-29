@@ -88,15 +88,11 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                                 onTap: (){
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignIn()));
                                 },
-
                                 child: const Text("SIGN IN",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.bold),)),
                           ],
                         )
-
                       ],
                     )
-
-
                 )
               ],
             ),

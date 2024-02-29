@@ -64,18 +64,12 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                             ),
                             child: const Text("Admin",style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),),
                           ),
-
                           const SizedBox(width: 50,),
-
                           InkWell(
                               onTap: (){
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeSignIn()));
                               },
-
                               child: const Text("Employee", style: TextStyle(color: Colors.black, fontSize: 15),)),
-
-
-
                         ],
                       ),
                       const SizedBox(height: 50,),
@@ -97,7 +91,8 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerMainScreen(employerId: "", name: "")));
                           },
                           btnTxt: "SIGN IN"
-                      ),Row(
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text("Don't have an account? ",style: TextStyle(color:Color(0x77212121), fontSize: 13,),),
@@ -106,18 +101,12 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignUp()));
                               },
                               child: const Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.bold),))
-
-
-
                         ],
                       )
 
                     ],
                   )
-
-
                 )
-
               ],
             ),
           )
