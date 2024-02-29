@@ -28,10 +28,10 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
         width: double.maxFinite,
         height: double.maxFinite,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage("assets/images/init_page_background.png")
-          )
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/images/init_page_background.png")
+            )
         ),
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,12 +58,7 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                         },
                       ),
                       const Text("Employees", style: TextStyle(color: Colors.white, fontSize: 25),),
-                      InkWell(
-                        child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
-                        onTap: (){
-                          getAllEmployees();
-                        },
-                      ),
+                      const SizedBox(width: 25,),
                     ],
                   ),
                   const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
@@ -113,26 +108,24 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
   }
 
   Future<void> getAllEmployees() async {
-    employeeDetailsList.clear();
+    await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
+      for(var doc in docSnapShot.docs){
+        setState(() {
+          employeeDetailsList.insert(0, EmployeeDetailsModel(
+              employeeId: doc.get("employeeId"),
+              email: doc.get("email"),
+              lastlogin: doc.get("lastlogin"),
+              mobileNumber: doc.get("mobileNumber"),
+              name: doc.get("name"),
+              photo: doc.get("photo"),
+              password: doc.get("password"),
+              salaryStatus: doc.get("salaryStatus")));
+        });
+      }
 
-      await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
-        for(var doc in docSnapShot.docs){
-          setState(() {
-            employeeDetailsList.insert(0, EmployeeDetailsModel(
-                employeeId: doc.get("employeeId"),
-                email: doc.get("email"),
-                lastlogin: doc.get("lastlogin"),
-                mobileNumber: doc.get("mobileNumber"),
-                name: doc.get("name"),
-                photo: doc.get("photo"),
-                password: doc.get("password"),
-                salaryStatus: doc.get("salaryStatus")));
-          });
-        }
-
-      }).catchError((error){
-        print(error.toString());
-      });
+    }).catchError((error){
+      print(error.toString());
+    });
   }
 
   Widget listItemLay(BuildContext context, int index) {
