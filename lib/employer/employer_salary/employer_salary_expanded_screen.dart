@@ -85,30 +85,32 @@ class _EmployerSalaryExpandedScreenState extends State<EmployerSalaryExpandedScr
                           alignment: Alignment.center,
                           child: Text("${employeeSalaryModel.month}     ${employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold))
                       ),
-                      SizedBox(
-                        width: 300,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const SizedBox(
-                                width: 100,
-                                child: Text("CTC : "),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: TextField(
-                                textAlign: TextAlign.center,
-                                controller: ctcController,
-                                cursorColor: Colors.black,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                  hintText: "₹ ${employeeSalaryModel.ctc}",
-                                  hintStyle: TextStyle(color: AuthColor().textFieldHintTextColor,fontSize: 15),
-                                ),
+                      SingleChildScrollView(
+                        child: SizedBox(
+                          width: 300,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const SizedBox(
+                                  width: 100,
+                                  child: Text("CTC : "),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                width: 100,
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  controller: ctcController,
+                                  cursorColor: Colors.black,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                    hintText: "₹ ${employeeSalaryModel.ctc}",
+                                    hintStyle: TextStyle(color: AuthColor().textFieldHintTextColor,fontSize: 15),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
