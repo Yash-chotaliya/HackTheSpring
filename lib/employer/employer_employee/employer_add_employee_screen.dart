@@ -211,7 +211,8 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
             mobileNumber: mobileNumberController.text,
             name: nameController.text,
             photo: "",
-            password: employeeId
+            password: employeeId,
+            salaryStatus: "Pending"
         ).toMap()
     ).then((value){
       FirebaseFirestore.instance.collection("Employee Salary").doc(employeeId).set(

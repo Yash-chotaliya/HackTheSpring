@@ -96,15 +96,8 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
               ),
             ),
           ],
-
-
-
         ),
-
-
-
       ),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF3b72ff),
         onPressed: () {
@@ -112,11 +105,10 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
         },
         child: const Icon(Icons.add, color: Colors.white,),
       ),);
- 
   }
 
-  void getAllEmployees() {
-      FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
+  Future<void> getAllEmployees() async {
+      await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
         for(var doc in docSnapShot.docs){
           setState(() {
             employeeDetailsList.insert(0, EmployeeDetailsModel(
@@ -126,7 +118,8 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                 mobileNumber: doc.get("mobileNumber"),
                 name: doc.get("name"),
                 photo: doc.get("photo"),
-                password: doc.get("password")));
+                password: doc.get("password"),
+                salaryStatus: doc.get("salaryStatus")));
           });
         }
 

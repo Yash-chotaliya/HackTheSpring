@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_salary.dart';
+
+import '../../data models/employee_model.dart';
 
 class EmployerSalaryScreen extends StatefulWidget{
   const EmployerSalaryScreen({super.key});
@@ -9,6 +12,16 @@ class EmployerSalaryScreen extends StatefulWidget{
 }
 
 class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
+
+  List<EmployeeDetailsModel> employeeDetailsList = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    getAllEmployees();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +62,7 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: 10,
+                itemCount: employeeDetailsList.length,
                 itemBuilder: (context, index) {
                   return listItemLay(context,index);
                 },
@@ -63,6 +76,27 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
   }
 
   Widget listItemLay(BuildContext context, int index) {
-    return EmployerSalaryCard();
+    return EmployerSalaryCard(employeeModel: employeeDetailsList[index],);
+  }
+
+  Future<void> getAllEmployees() async {
+    await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
+      for(var doc in docSnapShot.docs){
+        setState(() {
+          employeeDetailsList.insert(0, EmployeeDetailsModel(
+              employeeId: doc.get("employeeId"),
+              email: doc.get("email"),
+              lastlogin: doc.get("lastlogin"),
+              mobileNumber: doc.get("mobileNumber"),
+              name: doc.get("name"),
+              photo: doc.get("photo"),
+              password: doc.get("password"),
+              salaryStatus: doc.get("salaryStatus")));
+        });
+      }
+
+    }).catchError((error){
+      print(error.toString());
+    });
   }
 }
