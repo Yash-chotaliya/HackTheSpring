@@ -21,34 +21,34 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("assets/images/init_page_background.png")
-              )
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: double.maxFinite,
-                margin: const EdgeInsets.only(top: 70, right: 30, left: 30),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Getting Started", style: TextStyle(color: Colors.black, fontSize: 20,),),
-                    Text("Create an account to continue!", style: TextStyle(color: Color(0x77212121), fontSize: 12),)
-                  ],
+    return SafeArea(
+      child: Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/init_page_background.png")
+                )
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.only(top: 20, right: 30, left: 30),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Getting Started", style: TextStyle(color: Colors.black, fontSize: 20,),),
+                      Text("Create an account to continue!", style: TextStyle(color: Color(0x77212121), fontSize: 12),)
+                    ],
+                  ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
+                Expanded(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         width: 100,
@@ -60,54 +60,48 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         ),
                         child: const Text("Admin",style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),),
                       ),
-
-
-
-
+                      const SizedBox(height: 15,),
+                      AuthTextField(hint: "Email", controller: emailController, keyboardType: TextInputType.emailAddress, prefixIcon: const Icon(Icons.email),suffixIcon: null,),
+                      AuthTextField(hint: "Username", controller: usernameController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
+                      AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
+                      const SizedBox(height: 5,),
+                      Text(errorMessage, style: const TextStyle(color: Colors.red),)
                     ],
                   ),
-                  const SizedBox(height: 50,),
-                  AuthTextField(hint: "Email", controller: emailController, keyboardType: TextInputType.emailAddress, prefixIcon: const Icon(Icons.email),suffixIcon: null,),
-                  AuthTextField(hint: "Username", controller: usernameController, keyboardType: TextInputType.text, prefixIcon: const Icon(Icons.person),suffixIcon: null,),
-                  AuthTextField(hint: "Password", controller: passwordController, keyboardType: TextInputType.visiblePassword, prefixIcon: const Icon(Icons.lock), suffixIcon: const Icon(Icons.visibility),),
+                ),
+                Container(
+                    width: double.maxFinite,
+                    margin: const EdgeInsets.only(bottom: 20, left: 50, right: 50),
+                    child : Column(
+                      children: [
+                        AuthButton(
+                            onTap: (){
 
-                  const SizedBox(height: 20,),
-                  Text(errorMessage, style: const TextStyle(color: Colors.red),)
-                ],
-              ),
-              Container(
-                  width: double.maxFinite,
-                  margin: const EdgeInsets.only(bottom: 80, left: 50, right: 50),
-                  child : Column(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AuthButton(
-                          onTap: (){
+                            },
+                            btnTxt: "SIGN UP"
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Already have an account? ",style: TextStyle(color: Color(0x77212121), fontSize: 13,),),
+                            InkWell(
+                                onTap: (){
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignIn()));
+                                },
 
-                          },
-                          btnTxt: "SIGN UP"
-                      ),Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Already have an account? ",style: TextStyle(color: Color(0x77212121), fontSize: 15,),),
-                          InkWell(
-                              onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignIn()));
-                              },
+                                child: const Text("SIGN IN",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.bold),)),
+                          ],
+                        )
 
-                              child: const Text("SIGN IN",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
-                        ],
-                      )
-
-                    ],
-                  )
+                      ],
+                    )
 
 
-              )
-
-            ],
-          ),
-        )
+                )
+              ],
+            ),
+          )
+      ),
     );
   }
 
