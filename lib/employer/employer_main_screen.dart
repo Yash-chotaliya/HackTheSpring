@@ -154,14 +154,12 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
                           ),
                         ),
                         const SizedBox(width: 70,),
-
                       ],
                     )
                   ],
                 ),
               ),
             ),
-
           ],
         ),
       ),

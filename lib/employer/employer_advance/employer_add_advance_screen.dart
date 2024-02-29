@@ -156,7 +156,6 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
         }).catchError((e){
           print(e.toString());
         });
-        Navigator.pop(context);
       }).catchError((error){
         print(error.toString());
       });

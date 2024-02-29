@@ -55,7 +55,12 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
                     },
                   ),
                   const Text("Salary", style: TextStyle(color: Colors.white, fontSize: 25),),
-                  const SizedBox(width: 25,)
+                  InkWell(
+                    child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
+                    onTap: (){
+                      getAllEmployees();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -80,6 +85,8 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
   }
 
   Future<void> getAllEmployees() async {
+    employeeDetailsList.clear();
+
     await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
       for(var doc in docSnapShot.docs){
         setState(() {
