@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data models/employee_model.dart';
+import '../employer/employer_salary/employer_salary_expanded_screen.dart';
 
 class EmployerSalaryCard extends StatelessWidget{
   final EmployeeDetailsModel employeeModel;
@@ -14,7 +15,7 @@ class EmployerSalaryCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-       // Navigator.push(context, MaterialPageRoute(builder:(context)=> EmployerEmployeeExpandedScreen(employeeDetailsModel: employeeDetailsModel,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployerSalaryExpandedScreen(employeeId: employeeModel.employeeId)));
       },
       child: Card(
         color: Colors.white,
