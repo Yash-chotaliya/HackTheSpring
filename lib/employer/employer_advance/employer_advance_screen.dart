@@ -15,6 +15,8 @@ class EmployerAdvanceScreen extends StatefulWidget{
 class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
 
   List<EmployerAdvanceModel> employerAdvanceList =  [];
+  List<EmployerAdvanceModel>  filterAvanceList= [];
+  var searchControler = TextEditingController();
 
   @override
   void initState() {
@@ -45,29 +47,60 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))
                  ),
                  padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 20),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 child: Column(
                    children: [
-                     InkWell(
-                       child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
-                       onTap: (){
-                         Navigator.pop(context);
-                       },
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         InkWell(
+                           child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
+                           onTap: (){
+                             Navigator.pop(context);
+                           },
+                         ),
+                         const Text("Advance", style: TextStyle(color: Colors.white, fontSize: 25),),
+                         InkWell(
+                           child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
+                           onTap: (){
+                             getAdvances();
+                           },
+                         ),
+
+
+                       ],
                      ),
-                     const Text("Advance", style: TextStyle(color: Colors.white, fontSize: 25),),
-                     InkWell(
-                       child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
-                       onTap: (){
-                         getAdvances();
-                       },
+                 const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
+                 TextField( // Add your new search field here
+                   controller: searchControler,
+                   decoration: InputDecoration(
+                     filled: true,
+                     fillColor: Colors.white,
+                     hintText: 'Search...',
+                     hintStyle: const TextStyle(color: Colors.black),
+                     prefixIcon: const Icon(Icons.search, color: Colors.black),
+                     enabledBorder: OutlineInputBorder(
+                       borderSide: const BorderSide(color: Colors.white),
+                       borderRadius: BorderRadius.circular(50.0),
                      ),
+                     focusedBorder: OutlineInputBorder(
+                       borderSide: const BorderSide(color: Colors.white),
+                       borderRadius: BorderRadius.circular(50.0),
+                     ),
+                   ),
+                   style: const TextStyle(color: Colors.black),
+                   onChanged: (value) {
+                     filterEmployeesById(value);
+                   },
+                 ),
+
                    ],
                  ),
                ),
+
                Expanded(
                  child: ListView.builder(
                    scrollDirection: Axis.vertical,
-                   itemCount: employerAdvanceList.length,
+                   itemCount: filterAvanceList.length,
                    itemBuilder: (context, index) {
                      return listItemLay(context,index);
                    },
@@ -88,6 +121,7 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
 
   Future<void> getAdvances() async {
     employerAdvanceList.clear();
+    searchControler.clear();
 
     await FirebaseFirestore.instance.collection("Employer Advance").get().then((docSnapShot){
       for( var doc in docSnapShot.docs){
@@ -102,9 +136,20 @@ class _EmployerAdvanceScreenState extends State<EmployerAdvanceScreen> {
         });
       }
     });
+    filterAvanceList = List.from(employerAdvanceList);
+  }
+  void filterEmployeesById(String searchText) {
+    setState(() {
+      filterAvanceList = employerAdvanceList.where((employee) {
+        final id = employee.employeeId.toLowerCase();
+        final searchLower = searchText.toLowerCase();
+        return id.contains(searchLower);
+      }).toList();
+    });
   }
 
+
   Widget listItemLay(BuildContext context, int index) {
-    return EmployerAdvanceCard(employerAdvanceModel: employerAdvanceList[index]);
+    return EmployerAdvanceCard(employerAdvanceModel: filterAvanceList[index]);
   }
 }

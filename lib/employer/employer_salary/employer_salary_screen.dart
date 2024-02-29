@@ -14,7 +14,8 @@ class EmployerSalaryScreen extends StatefulWidget{
 class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
 
   List<EmployeeDetailsModel> employeeDetailsList = [];
-
+  List<EmployeeDetailsModel> filterEmployeeList = [];
+  var searchControler = TextEditingController();
 
   @override
   void initState() {
@@ -45,20 +46,48 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))
               ),
               padding: const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  InkWell(
-                    child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text("Salary", style: TextStyle(color: Colors.white, fontSize: 25),),
+                      InkWell(
+                        child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
+                        onTap: (){
+                          getAllEmployees();
+
+                        },
+                      ),
+                    ],
                   ),
-                  const Text("Salary", style: TextStyle(color: Colors.white, fontSize: 25),),
-                  InkWell(
-                    child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
-                    onTap: (){
-                      getAllEmployees();
+                  const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
+                  TextField( // Add your new search field here
+                    controller: searchControler,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Search...',
+                      hintStyle: const TextStyle(color: Colors.black),
+                      prefixIcon: const Icon(Icons.search, color: Colors.black),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                    onChanged: (value) {
+                     filterEmployees(value);
                     },
                   ),
                 ],
@@ -67,7 +96,7 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: employeeDetailsList.length,
+                itemCount: filterEmployeeList.length,
                 itemBuilder: (context, index) {
                   return listItemLay(context,index);
                 },
@@ -81,11 +110,12 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
   }
 
   Widget listItemLay(BuildContext context, int index) {
-    return EmployerSalaryCard(employeeModel: employeeDetailsList[index],);
+    return EmployerSalaryCard(employeeModel: filterEmployeeList[index],);
   }
 
   Future<void> getAllEmployees() async {
     employeeDetailsList.clear();
+    searchControler.clear();
 
     await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
       for(var doc in docSnapShot.docs){
@@ -104,6 +134,17 @@ class _EmployerSalaryScreenState extends State<EmployerSalaryScreen> {
 
     }).catchError((error){
       print(error.toString());
+    });
+    filterEmployeeList = List.from(employeeDetailsList);
+  }
+  void filterEmployees(String searchText) {
+    setState(() {
+      filterEmployeeList = employeeDetailsList.where((employee) {
+        final name = employee.name.toLowerCase();
+        final id = employee.employeeId.toLowerCase();
+        final searchLower = searchText.toLowerCase();
+        return name.contains(searchLower) || id.contains(searchLower);
+      }).toList();
     });
   }
 }

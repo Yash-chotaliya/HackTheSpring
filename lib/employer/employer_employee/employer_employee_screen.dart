@@ -14,6 +14,9 @@ class EmployerEmployeeScreen extends StatefulWidget{
 
 class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
   List<EmployeeDetailsModel> employeeDetailsList = [];
+  List<EmployeeDetailsModel> filteredEmployeeList = [];
+  var searchControler = TextEditingController();
+
 
   @override
   void initState() {
@@ -62,12 +65,14 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                         child: const Icon(Icons.refresh,size: 25, color: Colors.white,),
                         onTap: (){
                           getAllEmployees();
+
                         },
                       ),
                     ],
                   ),
                   const SizedBox(height: 10), // Add some space between the "Employees" text and the search field
                   TextField( // Add your new search field here
+                    controller: searchControler,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -85,7 +90,7 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
                     ),
                     style: const TextStyle(color: Colors.black),
                     onChanged: (value) {
-                      // Implement search functionality here
+                      filterEmployees(value);
                     },
                   ),
                 ],
@@ -94,7 +99,7 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: employeeDetailsList.length,
+                itemCount: filteredEmployeeList.length,
                 itemBuilder: (context, index) {
                   return listItemLay(context,index);
                 },
@@ -114,6 +119,7 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
 
   Future<void> getAllEmployees() async {
     employeeDetailsList.clear();
+    searchControler.clear();
 
     await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot){
       for(var doc in docSnapShot.docs){
@@ -133,11 +139,27 @@ class _EmployerEmployeeScreenState extends State<EmployerEmployeeScreen> {
     }).catchError((error){
       print(error.toString());
     });
+    filteredEmployeeList = List.from(employeeDetailsList);
+  }
+  void filterEmployees(String searchText) {
+    setState(() {
+      filteredEmployeeList = employeeDetailsList.where((employee) {
+        final name = employee.name.toLowerCase();
+        final id = employee.employeeId.toLowerCase();
+        final searchLower = searchText.toLowerCase();
+        return name.contains(searchLower) || id.contains(searchLower);
+      }).toList();
+    });
   }
 
+
+
   Widget listItemLay(BuildContext context, int index) {
-    return EmployerEmployeeCard(employeeDetailsModel: employeeDetailsList[index]);
+    return EmployerEmployeeCard(employeeDetailsModel: filteredEmployeeList[index]);
   }
+
+
+
 }
 
 
