@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employee_expense.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/data%20models/employer_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EmployeeAddExpenseScreen extends StatefulWidget{
   final String employeeId;
@@ -17,6 +20,8 @@ class EmployeeAddExpenseScreen extends StatefulWidget{
 }
 
 class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
+  File? _image;
+  final picker = ImagePicker();
 
   var amountController = TextEditingController();
   var vehicleNumberController = TextEditingController();
@@ -71,13 +76,13 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
                                   InkWell(
                                     child: const Icon(Icons.camera_alt, color: Colors.black,size: 60,),
                                     onTap: (){
-
+                                      cameraCapture();
                                     },
                                   ),
                                   const VerticalDivider(color: Colors.black,width: 10,),
                                   InkWell(
                                       onTap: (){
-
+                                        albumCapture();
                                       },
                                       child: const Icon(Icons.folder, color: Colors.black,size: 60,)
                                   )
@@ -85,11 +90,11 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
                               ),
                             ),
                             Visibility(
-                              visible: false,
+                              visible: _image==null ? false : true,
                               child: Container(
                                 width: double.maxFinite,
                                 padding: const EdgeInsets.all(8.0),
-                                child: Image.asset("assets/images/profile_image.png", fit: BoxFit.fitWidth,),
+                                child: _image==null ? Image.asset("assets/images/profile_image.png", fit: BoxFit.fill,): Image.file(_image!, fit: BoxFit.fitWidth,),
                               ),
                             )
                           ],
@@ -176,6 +181,15 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
     );
   }
 
+  Future cameraCapture() async {
+    final pickerImage = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if(pickerImage!=null){
+        _image = File(pickerImage.path);
+      }
+    });
+  }
+
   void resetData() {
     amountController.clear();
     vehicleNumberController.clear();
@@ -229,6 +243,10 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
     });
   }
 
+  void albumCapture() {
+
+  }
+
   String getCurrentTime() {
     today = DateTime.now();
     return "${today.hour}:${today.minute}  ${today.day}-${today.month}-${today.year}";
@@ -243,4 +261,6 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
     var x = today.year%100;
     return "${widget.employeeId}${today.hour}${today.minute}${today.month}${x}4";
   }
+
+
 }

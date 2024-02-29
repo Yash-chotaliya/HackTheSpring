@@ -56,7 +56,7 @@ class _EmployeeRecentActivityState extends State<EmployeeRecentActivity> {
   }
 
   Color getStatusColor(){
-    if(widget.employeeRecentActivityModel.status=="Rejected"){
+    if(widget.employeeRecentActivityModel.status=="Rejected" || widget.employeeRecentActivityModel.status=="Pending"){
       return Colors.red;
     }
     else{

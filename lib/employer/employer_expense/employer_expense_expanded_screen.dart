@@ -218,13 +218,13 @@ class _EmployerExpenseExpandedScreenState extends State<EmployerExpenseExpandedS
   Future<void> rejectExpense() async {
     await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.employeeId).collection("History").doc(widget.employerExpenseModel.expenseId).update(
         {
-          "status": "Rejected"
+          "status": "rejected"
         }
-    ).then((value){
-      FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.expenseId).update(
-        {
-          "status": "Rejected"
-        }
+    ).then((value) async {
+      await FirebaseFirestore.instance.collection("Employer Petrol Expense").doc(widget.employerExpenseModel.expenseId).update(
+          {
+            "status": "Rejected"
+          }
       ).then((value){
         Navigator.pop(context);
       }).catchError((onError){

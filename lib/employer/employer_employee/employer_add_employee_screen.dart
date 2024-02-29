@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_employee.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EmployerAddEmployeeScreen extends StatefulWidget{
   const EmployerAddEmployeeScreen({super.key});
@@ -11,6 +14,9 @@ class EmployerAddEmployeeScreen extends StatefulWidget{
 }
 
 class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
+  File? _image;
+  final picker = ImagePicker();
+
   var emailController = TextEditingController();
   var mobileNumberController = TextEditingController();
   var nameController = TextEditingController();
@@ -68,13 +74,13 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                                     InkWell(
                                       child: const Icon(Icons.camera_alt, color: Colors.black,size: 60,),
                                       onTap: (){
-
+                                        cameraCapture();
                                       },
                                     ),
                                     const VerticalDivider(color: Colors.black,width: 10,),
                                     InkWell(
                                         onTap: (){
-
+                                          albumCapture();
                                         },
                                         child: const Icon(Icons.folder, color: Colors.black,size: 60,)
                                     )
@@ -82,11 +88,11 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                                 ),
                               ),
                               Visibility(
-                                visible: false,
+                                visible: _image==null ? false : true,
                                 child: Container(
                                   width: double.maxFinite,
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset("assets/images/profile_image.png", fit: BoxFit.fitWidth,),
+                                  child: _image==null ? Image.asset("assets/images/profile_image.png", fit: BoxFit.fill,): Image.file(_image!, fit: BoxFit.fitWidth,),
                                 ),
                               )
                             ],
@@ -193,6 +199,15 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
     );
   }
 
+  Future cameraCapture() async {
+    final pickerImage = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if(pickerImage!=null){
+        _image = File(pickerImage.path);
+      }
+    });
+  }
+
   void resetData() {
     nameController.clear();
     emailController.clear();
@@ -246,5 +261,9 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
 
   String getSalaryId(String employeeId) {
     return  "$employeeId${today.month}${today.year}1";
+  }
+
+  void albumCapture() {
+
   }
 }
