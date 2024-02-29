@@ -208,8 +208,19 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
             time: currentTime,
             vehicleNumber: vehicleNumberController.text
         ).toMap()
-      ).then((value){
-        Navigator.pop(context);
+      ).then((value) async {
+        await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(widget.employeeId).collection("History").doc(getActivityId()).set(
+          EmployeeRecentActivityModel(
+              activityId: getActivityId(),
+              time: currentTime,
+              feature: "Expense",
+              status: "Pending"
+          ).toMap()
+        ).then((value){
+          Navigator.pop(context);
+        }).catchError((e){
+          print(e.toString());
+        });
       }).catchError((error){
         print(error.toString());
       });
@@ -226,5 +237,10 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
   getExpenseId() {
     var x = today.year%100;
     return "${widget.employeeId}${today.hour}${today.minute}${today.month}${x}2";
+  }
+
+  getActivityId() {
+    var x = today.year%100;
+    return "${widget.employeeId}${today.hour}${today.minute}${today.month}${x}4";
   }
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hack_the_spring/data%20models/employee_model.dart';
+
+import '../data models/employee_model.dart';
 
 class EmployerSalaryCard extends StatelessWidget{
+  final EmployeeDetailsModel employeeModel;
 
   const EmployerSalaryCard({
     super.key,
-
+    required this.employeeModel
   });
 
   @override
@@ -33,21 +35,20 @@ class EmployerSalaryCard extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    Text("name"),
-                    Text("id")
+                    Text(employeeModel.name),
+                    Text(employeeModel.employeeId)
                   ],
                 ),
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(right: 30),
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: statusColor(),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Text("Pending", style: const TextStyle(color: Colors.white, fontSize: 12),),
+              child: Text(employeeModel.salaryStatus, style: const TextStyle(color: Colors.white, fontSize: 12),),
             ),
           ],
         )
@@ -57,4 +58,10 @@ class EmployerSalaryCard extends StatelessWidget{
     );
   }
 
+  statusColor() {
+    if(employeeModel.salaryStatus=="Pending") {
+      return Colors.red;
+    }
+    return Colors.green;
+  }
 }

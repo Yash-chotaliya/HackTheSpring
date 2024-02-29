@@ -5,6 +5,7 @@ class EmployeeDetailsModel{
   String email;
   String lastlogin;
   String photo;
+  String salaryStatus;
   String password;
 
   EmployeeDetailsModel({
@@ -14,6 +15,7 @@ class EmployeeDetailsModel{
     required this.mobileNumber,
     required this.name,
     required this.photo,
+    required this.salaryStatus,
     required this.password
   });
 
@@ -25,6 +27,7 @@ class EmployeeDetailsModel{
       "mobileNumber":mobileNumber,
       "lastlogin":lastlogin,
       "photo":photo,
+      "salaryStatus": salaryStatus,
       "password":password
     };
   }

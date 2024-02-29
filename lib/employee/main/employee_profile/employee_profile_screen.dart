@@ -20,7 +20,7 @@ class EmployeeProfileScreen extends StatefulWidget{
 
 class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
 
-  EmployeeDetailsModel employeeDetails = EmployeeDetailsModel(employeeId: "", email: "", lastlogin: "", mobileNumber: "", name: "", photo: "",password: "");
+  EmployeeDetailsModel employeeDetails = EmployeeDetailsModel(employeeId: "", email: "", lastlogin: "", mobileNumber: "", name: "", photo: "",password: "", salaryStatus: "");
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +156,8 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
             mobileNumber: details.get("mobileNumber"),
             name: details.get("name"),
             photo: details.get("photo"),
-            password: details.get("password")
+            password: details.get("password"),
+            salaryStatus: details.get("salaryStatus")
         );
       });
     });

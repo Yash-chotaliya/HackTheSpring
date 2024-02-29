@@ -143,7 +143,19 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
             purpose: purposeController.text,
             issuedDate: currentTime
         ).toMap()
-      ).then((value){
+      ).then((value) async {
+        await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(employeeIdController.text).collection("History").doc(getActivityId()).set(
+            EmployeeRecentActivityModel(
+                activityId: getActivityId(),
+                time: currentTime,
+                feature: "Advance",
+                status: "Added"
+            ).toMap()
+        ).then((value){
+          Navigator.pop(context);
+        }).catchError((e){
+          print(e.toString());
+        });
         Navigator.pop(context);
       }).catchError((error){
         print(error.toString());
@@ -161,6 +173,11 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
   getAdvanceId() {
     var x = today.year%100;
     return "${employeeIdController.text}${today.hour}${today.minute}${today.month}${x}3";
+  }
+
+  getActivityId() {
+    var x = today.year%100;
+    return "${employeeIdController.text}${today.hour}${today.minute}${today.month}${x}4";
   }
 
   void resetData() {
