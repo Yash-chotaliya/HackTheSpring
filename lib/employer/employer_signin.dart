@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:hack_the_spring/employer/employer_main_screen.dart';
-import 'package:hack_the_spring/employer/employer_signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/auth/auth_button.dart';
 import '../components/auth/auth_textfield.dart';
@@ -83,28 +82,11 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                 Container(
                   width: double.maxFinite,
                   margin: const EdgeInsets.only(bottom: 20, left: 50, right: 50),
-                  child : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AuthButton(
-                          onTap: (){
-                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerMainScreen(employerId: "", name: "")));
-                          },
-                          btnTxt: "SIGN IN"
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Don't have an account? ",style: TextStyle(color:Color(0x77212121), fontSize: 13,),),
-                          InkWell(
-                              onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerSignUp()));
-                              },
-                              child: const Text("SIGN UP",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.bold),))
-                        ],
-                      )
-
-                    ],
+                  child : AuthButton(
+                      onTap: (){
+                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerMainScreen(employerId: "", name: "")));
+                      },
+                      btnTxt: "SIGN IN"
                   )
                 )
               ],

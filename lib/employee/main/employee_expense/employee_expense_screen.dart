@@ -110,7 +110,8 @@ class _EmployeeExpenseScreenState extends State<EmployeeExpenseScreen> {
               status: doc.get("status"),
               time: doc.get("time"),
               vehicleNumber: doc.get("vehicleNumber"),
-              expenseId: doc.get("expenseId")
+              expenseId: doc.get("expenseId"),
+              rejectedReason: doc.get("rejectedReason")
           ));
         });
       }

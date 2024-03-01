@@ -218,7 +218,8 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
                   status: "Pending",
                   time: currentTime,
                   vehicleNumber: vehicleNumberController.text,
-                  expenseId: expenseId
+                  expenseId: expenseId,
+                  rejectedReason: ""
               ).toMap()
           ).then((value) async {
             await FirebaseFirestore.instance.collection("Employer Petrol Expense").doc(expenseId).set(
@@ -230,7 +231,8 @@ class _EmployeeAddExpenseScreenState extends State<EmployeeAddExpenseScreen> {
                     photo: imageURL,
                     status: "Pending",
                     time: currentTime,
-                    vehicleNumber: vehicleNumberController.text
+                    vehicleNumber: vehicleNumberController.text,
+                    rejectedReason: ""
                 ).toMap()
             ).then((value) async {
               await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(widget.employeeId).collection("History").doc(getActivityId()).set(

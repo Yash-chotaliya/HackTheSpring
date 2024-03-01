@@ -84,6 +84,7 @@ class EmployeeExpenseModel{
   String photo;
   String status;
   String time;
+  String rejectedReason;
   String vehicleNumber;
 
   EmployeeExpenseModel({
@@ -93,6 +94,7 @@ class EmployeeExpenseModel{
     required this.photo,
     required this.status,
     required this.time,
+    required this.rejectedReason,
     required this.vehicleNumber
   });
 
@@ -104,6 +106,7 @@ class EmployeeExpenseModel{
       "photo":photo,
       "status":status,
       "time":time,
+      "rejectedReason": rejectedReason,
       "vehicleNumber":vehicleNumber
     };
   }

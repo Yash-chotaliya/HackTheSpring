@@ -24,7 +24,7 @@ class EmployeeExpenseCard extends StatelessWidget{
                 children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(employeeExpenseModel.photo, height: 170,width: 140,),
+                      child: Image.network(employeeExpenseModel.photo, height: 170,width: 120,),
                   ),
                   Container(
                     height: 170,
@@ -70,6 +70,9 @@ class EmployeeExpenseCard extends StatelessWidget{
                         children: [
                           const Text("Purpose", style: TextStyle(fontSize: 12)),
                           Text(employeeExpenseModel.purpose, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(height: 10,),
+                          if(employeeExpenseModel.status=="Rejected") const Text("Reason For Rejection", style: TextStyle(fontSize: 12)),
+                          if(employeeExpenseModel.status=="Rejected") Text(employeeExpenseModel.rejectedReason, style: const TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       )
                   )
