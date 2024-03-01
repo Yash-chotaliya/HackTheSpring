@@ -183,7 +183,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
                           ),
                           const SizedBox(height: 10,),
                           getLatestActivity(0),
-                          getLatestActivity(1)
+                          getLatestActivity(1),
                         ],
                       ),
                     ),
@@ -243,9 +243,10 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen> {
   }
 
   getLatestActivity(int index){
-    if(employeeRecentActivityList.isNotEmpty) {
+    if(employeeRecentActivityList.length>index){
       return EmployeeRecentActivity(employeeRecentActivityModel: employeeRecentActivityList[index],);
     }
     return Container();
+
   }
 }
