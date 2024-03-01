@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_employee.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 class EmployerAddEmployeeScreen extends StatefulWidget{
   const EmployerAddEmployeeScreen({super.key});
@@ -214,6 +216,29 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
     emailController.clear();
     mobileNumberController.clear();
   }
+  void sendMail(String employeeId) async {
+    String username = 'sandipmajithiya67@gmail.com';
+    String password = 'jnky auiq pkbs qppb';
+
+    final smtpServer = gmail(username, password);
+
+    final message = Message()
+      ..from = Address(username, 'Azure Allocation')
+      ..recipients.add(emailController.text) // recipient email address
+      ..subject = 'Azure Allocation'
+      ..text = 'This is the plain text.\nThis is line 2 of the text part.'
+      ..html = "<h3>Employee Register For Azure Allocatin Succeful</h3>\n<p>Id : ${employeeId}</p>\n<P>PasssWord : ${employeeId}</P>";
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
 
   Future<void> addEmployee() async {
     today = DateTime.now();
@@ -253,6 +278,7 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                     expense: 0
                 ).toMap()
             ).then((value){
+              sendMail(employeeId);
               Navigator.pop(context);
             }).catchError((onError){
               print(onError.toString());
