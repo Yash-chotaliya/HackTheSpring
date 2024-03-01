@@ -111,7 +111,7 @@ class _EmployeeProfileScreenState extends State<EmployeeProfileScreen> {
                     margin: const EdgeInsets.only(bottom: 120),
                     width: 70,
                     height: 70,
-                    child: Image.asset("assets/images/profile_image.png",fit: BoxFit.fill,)
+                    child: ClipOval(child: Image.network(employeeDetails.photo,fit: BoxFit.cover,))
                   )
                 ],
               ),

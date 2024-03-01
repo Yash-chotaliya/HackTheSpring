@@ -22,9 +22,9 @@ class EmployeeExpenseCard extends StatelessWidget{
             children: [
               Row(
                 children: [
-                  SizedBox(
-                      height: 170,
-                      child: Image.asset("assets/images/expense_photo.png"),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(employeeExpenseModel.photo, height: 170,),
                   ),
                   Container(
                     height: 170,

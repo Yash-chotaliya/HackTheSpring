@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_employee.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
@@ -218,42 +219,53 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
     today = DateTime.now();
     var employeeId = getEmployeeId();
     var salaryId = getSalaryId(employeeId);
-    await FirebaseFirestore.instance.collection("Employees").doc(employeeId).set(
-        EmployeeDetailsModel(
-            employeeId: employeeId,
-            email: emailController.text,
-            lastlogin: "",
-            mobileNumber: mobileNumberController.text,
-            name: nameController.text,
-            photo: "",
-            password: employeeId,
-            salaryStatus: "Pending"
-        ).toMap()
-    ).then((value){
-      FirebaseFirestore.instance.collection("Employee Salary").doc(employeeId).set(
-        EmployeeSalaryModel(
-            salaryId: salaryId,
-            allowance: 0,
-            basicSalary: int.parse(basicSalaryController.text),
-            bonus: 0,
-            ctc: int.parse(ctcController.text),
-            deduction: 0,
-            inHand: int.parse(basicSalaryController.text),
-            month: today.month.toString(),
-            year: today.year,
-            status: "Pending",
-            expense: 0
-        ).toMap()
-      ).then((value){
-        Navigator.pop(context);
-      }).catchError((onError){
-        print(onError.toString());
-      });
-    }).catchError((error){
-      print(error.toString());
-    });
-  }
+    final storageRef = FirebaseStorage.instanceFor(bucket: "gs://hackthespring-6dc73.appspot.com").ref();
+    final mountainsRef = storageRef.child("employeeProfilePhoto/$employeeId.jpg");
 
+    try{
+      await mountainsRef.putFile(_image!).then((p0) async {
+        await p0.ref.getDownloadURL().then((value) async {
+          var imageURL = value;
+          await FirebaseFirestore.instance.collection("Employees").doc(employeeId).set(
+              EmployeeDetailsModel(
+                  employeeId: employeeId,
+                  email: emailController.text,
+                  lastlogin: "",
+                  mobileNumber: mobileNumberController.text,
+                  name: nameController.text,
+                  photo: imageURL,
+                  password: employeeId,
+                  salaryStatus: "Pending"
+              ).toMap()
+          ).then((value){
+            FirebaseFirestore.instance.collection("Employee Salary").doc(employeeId).set(
+                EmployeeSalaryModel(
+                    salaryId: salaryId,
+                    allowance: 0,
+                    basicSalary: int.parse(basicSalaryController.text),
+                    bonus: 0,
+                    ctc: int.parse(ctcController.text),
+                    deduction: 0,
+                    inHand: int.parse(basicSalaryController.text),
+                    month: today.month.toString(),
+                    year: today.year,
+                    status: "Pending",
+                    expense: 0
+                ).toMap()
+            ).then((value){
+              Navigator.pop(context);
+            }).catchError((onError){
+              print(onError.toString());
+            });
+          }).catchError((error){
+            print(error.toString());
+          });
+        });
+      });
+    }catch (e) {
+      print(e.toString());
+    };
+  }
   String getEmployeeId() {
     var x = today.year % 100;
     return "$x${today.month}${today.day}${today.hour}${today.minute}${today.second}";
