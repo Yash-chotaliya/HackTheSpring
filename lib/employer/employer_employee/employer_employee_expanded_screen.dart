@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/data%20models/employee_model.dart';
 import 'package:hack_the_spring/employee/main/employee_dashboard/employee_dashboard_screen.dart';
+import 'package:hack_the_spring/employer/employer_employee/employer_employee_expence_screen.dart';
 
 import '../../components/employee_profile.dart';
 import '../../employee/main/employee_advance/employee_advance_screen.dart';
@@ -34,7 +36,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
               )
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: double.maxFinite,
@@ -42,6 +44,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     InkWell(
                       child: const Icon(Icons.keyboard_backspace,size: 25, color: Colors.white,),
@@ -50,7 +53,13 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                       },
                     ),
                     Text(widget.employeeDetailsModel.name, style: TextStyle(color: Colors.white, fontSize: 25),),
-                    const SizedBox(width: 25,)
+
+                    InkWell(
+                      child: const Icon(Icons.delete,size: 25, color: Colors.white,),
+                      onTap: (){
+                          //deleteEmployee();
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -116,7 +125,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                       ),
                       InkWell(
                         onTap: (){
-
+                          getEmployeeSalary();
                         },
                         child: Column(
                           children: [
@@ -127,8 +136,8 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployeeAdvanceScreen(employeeId: widget.employeeDetailsModel.employeeId)));
                         },
                         child: Column(
                           children: [
@@ -140,6 +149,7 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
                       ),
                       InkWell(
                         onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployerEmployeeExpenseScreen(employeeId: widget.employeeDetailsModel.employeeId)));
 
                         },
                         child: Column(
@@ -160,4 +170,37 @@ class _EmployerEmployeeExpandedScreenState extends State<EmployerEmployeeExpande
       ),
     );
   }
+
+  Future<void> getEmployeeSalary() async {
+    await FirebaseFirestore.instance.collection("Employee Salary").doc(
+        widget.employeeDetailsModel.employeeId).get().then((value) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+          EmployeeSalaryScreen(
+              employeeId: widget.employeeDetailsModel.employeeId, currentSalary:
+          EmployeeSalaryModel(
+              salaryId: value.get("salaryId"),
+              allowance: value.get("allowance"),
+              basicSalary: value.get("basicSalary"),
+              bonus: value.get("bonus"),
+              ctc: value.get("ctc"),
+              deduction: value.get("deduction"),
+              inHand: value.get("inHand"),
+              month: value.get("month"),
+              year: value.get("year"),
+              status: value.get("status"),
+              expense: value.get("expense")))));
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  Future<void> deleteEmployee() async {
+    await FirebaseFirestore.instance.collection("Employees").doc(widget.employeeDetailsModel.employeeId).delete().then((value) {
+
+    } ).catchError((onError){
+      print(onError.toString());
+    });
+  }
+
 }
+
