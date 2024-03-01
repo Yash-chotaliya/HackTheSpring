@@ -37,130 +37,132 @@ class _EmployerMainScreenState extends State<EmployerMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("assets/images/employee_main_background.png"),
-            )
-        ),
-        child: Column(
-          children: [
-            Container(
-                width: double.maxFinite,
-                margin: const EdgeInsets.only(top: 40),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text("Hello,\nSandip Majithiya", style: TextStyle(color: Colors.white, fontSize: 20)),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerProfileScreen(employerId: "")));
-                      },
-                      child: CircleAvatar(
-                        radius: 27,
-                        child: Image.asset("assets/images/profile_image.png"),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/images/employee_main_background.png"),
+              )
+          ),
+          child: Column(
+            children: [
+              Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Hello,\nSandip Majithiya", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerProfileScreen(employerId: "")));
+                        },
+                        child: CircleAvatar(
+                          radius: 27,
+                          child: Image.asset("assets/images/profile_image.png"),
+                        ),
+                      )
+                    ],
+                  )
+              ),
+             const SizedBox(height: 20),
+              Card(
+                color: const Color(0xFFFFFFFF),
+                elevation: 10,
+                margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.maxFinite,
+                        alignment: Alignment.centerLeft,
+                        child: const Text("Features", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
                       ),
-                    )
-                  ],
-                )
-            ),
-           const SizedBox(height: 20),
-            Card(
-              color: const Color(0xFFFFFFFF),
-              elevation: 10,
-              margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.maxFinite,
-                      alignment: Alignment.centerLeft,
-                      child: const Text("Features", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
-                    ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerEmployeeScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/employeeIcon.png"),
-                              const SizedBox(height: 5,),
-                              const Text("Employee", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15,fontWeight:FontWeight.bold),)
-                            ],
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerEmployeeScreen()));
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset("assets/images/employeeIcon.png"),
+                                const SizedBox(height: 5,),
+                                const Text("Employee", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15,fontWeight:FontWeight.bold),)
+                              ],
+                            ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerAdvanceScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/advance_icon.png"),
-                              const SizedBox(height: 5),
-                              const Text("Advance",style: TextStyle(color: Color(0xff03ab00),fontSize: 15))
-                            ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerAdvanceScreen()));
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset("assets/images/advance_icon.png"),
+                                const SizedBox(height: 5),
+                                const Text("Advance",style: TextStyle(color: Color(0xff03ab00),fontSize: 15))
+                              ],
+                            ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerExpenseScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/expense_icon.png"),
-                              const SizedBox(height: 5),
-                              const Text("Expense",style: TextStyle(color: Color(0xFFc498f1),fontSize: 15,fontWeight:FontWeight.bold))
-                            ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerExpenseScreen()));
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset("assets/images/expense_icon.png"),
+                                const SizedBox(height: 5),
+                                const Text("Expense",style: TextStyle(color: Color(0xFFc498f1),fontSize: 15,fontWeight:FontWeight.bold))
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerDashboardScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/dashboard_icon.png"),
-                              const SizedBox(height: 5,),
-                              const Text("DashBord", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15,fontWeight:FontWeight.bold),)
-                            ],
+                        ],
+                      ),
+                      const SizedBox(height: 15,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const EmployerDashboardScreen()));
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset("assets/images/dashboard_icon.png"),
+                                const SizedBox(height: 5,),
+                                const Text("DashBord", style: TextStyle(color: Color(0xFF98c6f1),fontSize: 15,fontWeight:FontWeight.bold),)
+                              ],
+                            ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmployerSalaryScreen()));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset("assets/images/salaryIcon.png"),
-                              const SizedBox(height: 5),
-                              const Text("Salary",style: TextStyle(color: Color(0xff9A1F1F),fontSize: 15,fontWeight: FontWeight.bold))
-                            ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmployerSalaryScreen()));
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset("assets/images/salaryIcon.png"),
+                                const SizedBox(height: 5),
+                                const Text("Salary",style: TextStyle(color: Color(0xff9A1F1F),fontSize: 15,fontWeight: FontWeight.bold))
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 70,),
-                      ],
-                    )
-                  ],
+                          const SizedBox(width: 70,),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

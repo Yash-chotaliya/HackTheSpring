@@ -24,7 +24,7 @@ class EmployeeExpenseCard extends StatelessWidget{
                 children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(employeeExpenseModel.photo, height: 170,),
+                      child: Image.network(employeeExpenseModel.photo, height: 170,width: 140,),
                   ),
                   Container(
                     height: 170,
