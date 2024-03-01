@@ -83,23 +83,11 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
               Container(
                 width: double.maxFinite,
                 margin: const EdgeInsets.only(bottom: 20, left: 50, right: 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AuthButton(
-                        onTap: (){
-                          signInEmployee();
-                        },
-                        btnTxt: "SIGN IN"
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("",style: TextStyle(color:Color(0x77212121), fontSize: 13,),),
-                        Text("",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.bold),)
-                      ],
-                    )
-                  ],
+                child: AuthButton(
+                    onTap: (){
+                      signInEmployee();
+                    },
+                    btnTxt: "SIGN IN"
                 ),
               )
             ],

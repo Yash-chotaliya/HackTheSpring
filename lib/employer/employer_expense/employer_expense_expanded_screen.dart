@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/components/employer_expense.dart';
 import 'package:hack_the_spring/data%20models/employer_model.dart';
+import 'package:hack_the_spring/employer/employer_expense/employer_expense_screen.dart';
 
 class EmployerExpenseExpandedScreen extends StatefulWidget{
   final EmployerExpenseModel employerExpenseModel;
@@ -142,6 +143,19 @@ class _EmployerExpenseExpandedScreenState extends State<EmployerExpenseExpandedS
                               ],
                             ),
                           ),
+                          if(widget.employerExpenseModel.status=="Rejected") Container(
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Reason For Rejection :", style: const TextStyle(fontSize: 12),),
+                                const SizedBox(height: 3,),
+                                Text(widget.employerExpenseModel.rejectedReason, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),maxLines: null,),
+                                const SizedBox(height: 2,)
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -179,7 +193,7 @@ class _EmployerExpenseExpandedScreenState extends State<EmployerExpenseExpandedS
             ),
             ElevatedButton(
               onPressed: () {
-                rejectExpense();
+                rejectExpenseDialogue();
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -217,18 +231,50 @@ class _EmployerExpenseExpandedScreenState extends State<EmployerExpenseExpandedS
     });
   }
 
-  Future<void> rejectExpense() async {
+  void rejectExpenseDialogue() {
+
+    var reasonController = TextEditingController();
+
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        title: Text("Enter Reason For Rejection : ", style: TextStyle(color: Colors.black, fontSize: 20),),
+        content: TextField(
+          controller: reasonController,
+        ),
+        icon: InkWell(
+            child: const Icon(Icons.close),
+          onTap: (){
+            Navigator.pop(context);
+          },
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            child: Text("Reject", style: TextStyle(color: Colors.black, fontSize: 20),),
+            onPressed: (){
+              rejectExpense(reasonController.text.toString());
+              },
+          ),
+        ],
+    );
+  });
+  }
+
+  Future<void> rejectExpense(String reason) async {
     await FirebaseFirestore.instance.collection("Employee Petrol Expense").doc(widget.employerExpenseModel.employeeId).collection("History").doc(widget.employerExpenseModel.expenseId).update(
         {
-          "status": "rejected"
+          "status": "Rejected",
+          "rejectedReason": reason
         }
     ).then((value) async {
       await FirebaseFirestore.instance.collection("Employer Petrol Expense").doc(widget.employerExpenseModel.expenseId).update(
           {
-            "status": "Rejected"
+            "status": "Rejected",
+            "rejectedReason": reason
           }
       ).then((value){
-        Navigator.pop(context);
+        int count = 0;
+        Navigator.popUntil(context, (route) => count++>=2);
       }).catchError((onError){
         print(onError.toString());
       });

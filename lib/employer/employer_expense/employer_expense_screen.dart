@@ -126,6 +126,7 @@ class _EmployerExpenseScreenState extends State<EmployerExpenseScreen> {
             status: doc.get("status"),
             time: doc.get("time"),
             vehicleNumber: doc.get("vehicleNumber"),
+            rejectedReason: doc.get("rejectedReason"),
           ));
         });
       }
