@@ -99,6 +99,7 @@ class _EmployerEmployeeExpenseScreenState extends State<EmployerEmployeeExpenseS
           employeeExpenseList.insert(0, EmployeeExpenseModel(
               amount: doc.get("amount"),
               purpose: doc.get("purpose"),
+              rejectedReason: doc.get("rejectedReason"),
               photo: doc.get("photo"),
               status: doc.get("status"),
               time: doc.get("time"),
