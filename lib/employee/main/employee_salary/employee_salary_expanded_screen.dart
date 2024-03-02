@@ -17,6 +17,22 @@ class EmployeeSalaryExpandedScreen extends StatefulWidget{
 }
 
 class _EmployeeSalaryExpandedScreenState extends State<EmployeeSalaryExpandedScreen> {
+
+  static const Map<String, String> monthMap = {
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+  };
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,7 +82,7 @@ class _EmployeeSalaryExpandedScreenState extends State<EmployeeSalaryExpandedScr
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("${widget.employeeSalaryModel.month} ${widget.employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
+                            Text("${monthMap[widget.employeeSalaryModel.month.toString()]!}   ${widget.employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         Container(

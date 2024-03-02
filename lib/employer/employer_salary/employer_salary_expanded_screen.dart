@@ -26,6 +26,21 @@ class _EmployerSalaryExpandedScreenState extends State<EmployerSalaryExpandedScr
   var bonusController = TextEditingController();
   var deductionController = TextEditingController();
 
+  static const Map<String, String> monthMap = {
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+  };
+
   @override
   void initState() {
     super.initState();
@@ -84,7 +99,7 @@ class _EmployerSalaryExpandedScreenState extends State<EmployerSalaryExpandedScr
                         Container(
                             width: 200,
                             alignment: Alignment.center,
-                            child: Text("${employeeSalaryModel.month}     ${employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold))
+                            child: Text("${monthMap[employeeSalaryModel.month.toString()]!}   ${employeeSalaryModel.year}", style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold))
                         ),
                         SingleChildScrollView(
                           child: SizedBox(
