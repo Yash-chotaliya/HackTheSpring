@@ -4,6 +4,7 @@ import 'package:hack_the_spring/data%20models/employer_model.dart';
 import '../../components/employer_advance.dart';
 import '../../data models/employee_model.dart';
 
+
 class EmployerAddAdvanceScreen extends StatefulWidget{
   const EmployerAddAdvanceScreen({super.key});
 
@@ -13,10 +14,19 @@ class EmployerAddAdvanceScreen extends StatefulWidget{
 
 class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
 
-  var employeeIdController = TextEditingController();
+  List<String> employeeName = [];
+  String? dropdownValue;
+  String? employeeId;
   var amountController = TextEditingController();
   var purposeController = TextEditingController();
   late DateTime today;
+
+
+  @override
+  void initState() {
+    super.initState();
+    getEmployeeID();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +58,43 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
                             color: Colors.white,)
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: EmployerAddAdvancedTextField(
-                        hint: 'Employee_Id',
-                        controller: employeeIdController,
-                        inputType: TextInputType.text,
-                        prefixIcon: const Icon(Icons.person_2_outlined),
-                      ),
+
+                    Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(left: 10, bottom: 5),
+                          child: Text("Employee Id", style: const TextStyle(color: Colors.white),),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+
+                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: DropdownButton<String>(
+
+                            hint: Text('Select ID'),
+                            value: dropdownValue,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                                employeeId = newValue.split(" ")[0];
+                              });
+                            },
+                            items: employeeName.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                child: Text(value),
+                                value: value,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
                     ),
 
                     Container(
@@ -129,7 +168,7 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
   Future<void> addAdvance() async {
     var currentTime = getCurrentTime();
     var advanceId = getAdvanceId();
-    await FirebaseFirestore.instance.collection("Employee Advance").doc(employeeIdController.text).collection("History").doc(advanceId).set(
+    await FirebaseFirestore.instance.collection("Employee Advance").doc(employeeId).collection("History").doc(advanceId).set(
         EmployeeAdvanceModel(
             advanceId: advanceId,
             amount: int.parse(amountController.text),
@@ -139,14 +178,14 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
     ).then((value) async {
       await FirebaseFirestore.instance.collection("Employer Advance").doc(advanceId).set(
         EmployerAdvanceModel(
-            employeeId: employeeIdController.text,
+            employeeId: employeeId!,
             advanceId: advanceId,
             amount: int.parse(amountController.text),
             purpose: purposeController.text,
             issuedDate: currentTime
         ).toMap()
       ).then((value) async {
-        await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(employeeIdController.text).collection("History").doc(getActivityId()).set(
+        await FirebaseFirestore.instance.collection("Employee Recent Activity").doc(employeeId).collection("History").doc(getActivityId()).set(
             EmployeeRecentActivityModel(
                 activityId: getActivityId(),
                 time: currentTime,
@@ -173,17 +212,28 @@ class _EmployerAddAdvanceScreenState extends State<EmployerAddAdvanceScreen> {
 
   getAdvanceId() {
     var x = today.year%100;
-    return "${employeeIdController.text}${today.hour}${today.minute}${today.month}${x}3";
+    return "$employeeId${today.hour}${today.minute}${today.month}${x}3";
   }
 
   getActivityId() {
     var x = today.year%100;
-    return "${employeeIdController.text}${today.hour}${today.minute}${today.month}${x}4";
+    return "$employeeId${today.hour}${today.minute}${today.month}${x}4";
   }
 
   void resetData() {
-    employeeIdController.clear();
     amountController.clear();
     purposeController.clear();
+  }
+  void getEmployeeID() async {
+    await FirebaseFirestore.instance.collection("Employees").get().then((docSnapShot) {
+      for (var doc in docSnapShot.docs){
+        setState(() {
+          employeeName.insert(0, doc.get("employeeId")+"     "+doc.get("name"));
+
+        });
+      }
+    }).catchError((onError){
+      print(onError.toString());
+    });
   }
 }

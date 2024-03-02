@@ -102,7 +102,7 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
                               ],
                             ),
                           ),
-                          const Text("Upload Image Of Bill"),
+                          const Text("Profile Picture"),
                           const SizedBox(height: 10,)
                         ],
                       ),
@@ -225,11 +225,11 @@ class _EmployerAddEmployeeScreenState extends State<EmployerAddEmployeeScreen> {
     final smtpServer = gmail(username, password);
 
     final message = Message()
-      ..from = Address(username, 'Azure Allocation')
+      ..from = Address(username, 'Aura Allocation')
       ..recipients.add(emailController.text) // recipient email address
-      ..subject = 'Azure Allocation'
+      ..subject = 'Aura Allocation'
       ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-      ..html = "<h3>Employee Register For Azure Allocatin Succeful</h3>\n<p>Id : ${employeeId}</p>\n<P>PasssWord : ${employeeId}</P>";
+      ..html = "<h3>Employee Register For Aura Allocatin Succeful</h3>\n<p>Id : ${employeeId}</p>\n<P>PasssWord : ${employeeId}</P>";
 
     try {
       final sendReport = await send(message, smtpServer);
