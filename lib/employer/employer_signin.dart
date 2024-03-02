@@ -84,7 +84,7 @@ class _EmployerSignInState extends State<EmployerSignIn> {
                   margin: const EdgeInsets.only(bottom: 20, left: 50, right: 50),
                   child : AuthButton(
                       onTap: (){
-                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployerMainScreen(employerId: "", name: "")));
+                        signInEmployer();
                       },
                       btnTxt: "SIGN IN"
                   )
@@ -101,5 +101,17 @@ class _EmployerSignInState extends State<EmployerSignIn> {
     prefs.setString("employeeId", employeeId);
     prefs.setString("name", name);
     prefs.setBool("islogin", true);
+  }
+
+  void signInEmployer() {
+    var id = employeeIdController.text.toString();
+    var password = passwordController.text.toString();
+
+    if(id == "admin" && password=="admin"){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployerMainScreen(employerId: id, name: password)));
+    }
+    else{
+      print("Invalid User");
+    }
   }
 }
