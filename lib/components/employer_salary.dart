@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../data models/employee_model.dart';
 import '../employer/employer_salary/employer_salary_expanded_screen.dart';
 
-class EmployerSalaryCard extends StatelessWidget{
+class EmployerSalaryCard extends StatefulWidget{
   final EmployeeDetailsModel employeeModel;
 
   const EmployerSalaryCard({
@@ -12,10 +13,15 @@ class EmployerSalaryCard extends StatelessWidget{
   });
 
   @override
+  State<EmployerSalaryCard> createState() => _EmployerSalaryCardState();
+}
+
+class _EmployerSalaryCardState extends State<EmployerSalaryCard> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployerSalaryExpandedScreen(employeeId: employeeModel.employeeId)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> EmployerSalaryExpandedScreen(employeeId: widget.employeeModel.employeeId)));
       },
       child: Card(
         color: Colors.white,
@@ -36,20 +42,25 @@ class EmployerSalaryCard extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    Text(employeeModel.name),
-                    Text(employeeModel.employeeId)
+                    Text(widget.employeeModel.name),
+                    Text(widget.employeeModel.employeeId)
                   ],
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 30),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: statusColor(),
-                borderRadius: BorderRadius.circular(10),
+            InkWell(
+              onTap: (){
+                changeSalaryStatus();
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: statusColor(),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(widget.employeeModel.salaryStatus, style: const TextStyle(color: Colors.white, fontSize: 12),),
               ),
-              child: Text(employeeModel.salaryStatus, style: const TextStyle(color: Colors.white, fontSize: 12),),
             ),
           ],
         )
@@ -60,9 +71,58 @@ class EmployerSalaryCard extends StatelessWidget{
   }
 
   statusColor() {
-    if(employeeModel.salaryStatus=="Pending") {
+    if(widget.employeeModel.salaryStatus=="Pending") {
       return Colors.red;
     }
     return Colors.green;
+  }
+
+  Future<void> changeSalaryStatus() async {
+    if(widget.employeeModel.salaryStatus=="Pending"){
+      await FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeModel.employeeId).update(
+          {
+            "status": "Paid"
+          }
+      ).then((value) async {
+        await FirebaseFirestore.instance.collection("Employees").doc(widget.employeeModel.employeeId).update(
+          {
+            "salaryStatus":"Paid"
+          }
+        ).then((value){
+
+          // setState(() {
+          //   widget.employeeModel.salaryStatus="Paid";
+          // });
+        }).catchError((error){
+          print(error.toString());
+        });
+      }).catchError((onError){
+        print(onError.toString());
+      });
+    }
+    else{
+      await FirebaseFirestore.instance.collection("Employee Salary").doc(widget.employeeModel.employeeId).update(
+          {
+            "status": "Pending"
+          }
+      ).then((value){
+        print("pending");
+        FirebaseFirestore.instance.collection("Employees").doc(widget.employeeModel.employeeId).update(
+          {
+            "salaryStatus": "Pending"
+          }
+        ).then((value){
+
+          // setState(() {
+          //   widget.employeeModel.salaryStatus="Pending";
+          // });
+        }).catchError((error){
+          print(error.toString());
+        });
+      }).catchError((onError){
+        print(onError.toString());
+      });
+    }
+
   }
 }

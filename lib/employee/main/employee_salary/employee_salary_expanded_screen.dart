@@ -192,26 +192,6 @@ class _EmployeeSalaryExpandedScreenState extends State<EmployeeSalaryExpandedScr
                 ),
 
               ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 40)
-                      ),
-                      child: const Text("PDF",style: TextStyle(color: Colors.white, fontSize: 13)),
-                    ),
-                  ],
-                ),
-              ),
 
 
 
