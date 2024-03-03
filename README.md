@@ -1,19 +1,55 @@
-# hack_the_spring
+Project Name: Aura Allocation
 
-A new Flutter project.
+Overview:
+This project aims to develop a payroll management system using Flutter and Firebase. The system allows administrators to manage employee data, track salary information, petrol expenses, and advances given to employees. Employees can register using a unique ID provided by the administrator and access their salary, advances, and expenses through a dashboard.
 
-## Getting Started
+Features:
+1. Admin Panel:
+   - Add Employees: Admin can add new employees to the system along with their details such as name, designation, and salary.
+   - Track Salary Information: Admin can view and manage salary information for each employee, including monthly wages, bonuses, and deductions.
+   - Manage Petrol Expenses: Admin can track petrol expenses incurred by employees for official purposes.
+   - Manage Advances: Admin can provide advances to employees and track the advances given to each employee.
 
-This project is a starting point for a Flutter application.
+2. **Employee Registration:**
+   - Employee Registration: Employees can register using a unique registration ID provided by the admin along with a password.
+   - Access Dashboard: Once registered, employees can access a dashboard to view their salary, advances, and expenses.
 
-A few resources to get you started if this is your first Flutter project:
+3. **Dashboard:**
+   - Visualize Data: Both admin and employees can visualize salary, advances, and expenses through graphs and charts for better understanding and analysis.
+   - View Salary: Employees can view their monthly salary details including earnings and deductions.
+   - View Advances: Employees can see the advances they have received and their repayment schedule.
+   - View Expenses: Admin and employees can view petrol expenses and other expenses incurred by the company.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Technologies Used:**
+- Flutter: For cross-platform mobile app development.
+- Firebase Authentication: For user authentication and registration.
+- Firebase Firestore: For storing and managing employee data, salary information, expenses, and advances.
+- Flutter Charts: For visualizing data through graphs and charts in the dashboard.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Installation:**
+1. Clone the repository from GitHub.
+2. Install Flutter and Firebase SDKs.
+3. Set up Firebase project and configure Firebase authentication and Firestore database.
+4. Run the Flutter project on your preferred emulator or device.
 
-SANDIP
-YASH
+**Usage:**
+1. Admin:
+   - Log in to the admin panel.
+   - Add employees and provide them with registration IDs.
+   - Track salary information, petrol expenses, and advances.
+2. Employee:
+   - Register using the provided registration ID and password.
+   - Access the dashboard to view salary, advances, and expenses.
+
+**Contributors:**
+- [Your Name]
+- [Any other contributors]
+
+**License:**
+This project is licensed under the [License Name]. (Specify the license you choose)
+
+**Contact:**
+For any queries or support, please contact [Your Email Address].
+
+**Acknowledgments:**
+- Mention any libraries, resources, or inspirations used in the project.
