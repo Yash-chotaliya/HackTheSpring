@@ -2,17 +2,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_the_spring/employee/employee_signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'employee/main/employee_main_screen.dart';
+import 'keys.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyBFKwtnpLAXHO0yYunI3nMeeil5blZmw_k", // paste your api key here
-      appId: "1:519305744992:android:0bb77ccd83625cfe4e2905", //paste your app id here
-      messagingSenderId: "519305744992", //paste your messagingSenderId here
-      projectId: "hackthespring-6dc73", //paste your project id here
+      apiKey: Keys.apiKey, // paste your api key here
+      appId: Keys.appId, //paste your app id here
+      messagingSenderId: Keys.messagingSenderId, //paste your messagingSenderId here
+      projectId: Keys.projectId, //paste your project id here
     ),
   );
   runApp(const MyApp());

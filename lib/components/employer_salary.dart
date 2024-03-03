@@ -90,9 +90,9 @@ class _EmployerSalaryCardState extends State<EmployerSalaryCard> {
           }
         ).then((value){
 
-          // setState(() {
-          //   widget.employeeModel.salaryStatus="Paid";
-          // });
+          setState(() {
+            widget.employeeModel.salaryStatus="Paid";
+          });
         }).catchError((error){
           print(error.toString());
         });
@@ -113,9 +113,9 @@ class _EmployerSalaryCardState extends State<EmployerSalaryCard> {
           }
         ).then((value){
 
-          // setState(() {
-          //   widget.employeeModel.salaryStatus="Pending";
-          // });
+          setState(() {
+            widget.employeeModel.salaryStatus="Pending";
+          });
         }).catchError((error){
           print(error.toString());
         });
