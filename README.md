@@ -54,6 +54,3 @@ Contributors:
 - Adarsh Bhayani
 - Sandip Majithiya
 - Palak Vaghela
-
-**Acknowledgments:**
-- Mention any libraries, resources, or inspirations used in the project.
